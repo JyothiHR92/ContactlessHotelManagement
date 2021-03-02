@@ -1,0 +1,22 @@
+# serverless.yml
+service: poc
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  memorySize: 512
+
+functions:
+  searchFunc:
+    handler: index.handler
+    events:
+      - http:
+          path: searchHotel
+          method: get
+          cors : true
+     
+
+plugins:
+  - serverless-offline
