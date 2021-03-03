@@ -22,9 +22,9 @@ app.get('/searchHotel', (req, res) => {
     and rt.hotelID = h.hotelID 
     and rt.maxOccupancy > \'${guests}\' and  r.roomID 
     not in (select r1.roomID from Rooms r1 join Reservations r2 where r1.roomID = r2.roomID 
-    and  ((r2.checkInDate >= \'${checkin}\' and r2.checkInDate <= \'${checkin}\' ) 
-    or (r2.checkOutDate <= \'${checkout}\' and r2.checkOutDate >= \'${checkout}\') 
-    or (r2.checkInDate <= \'${checkin}\' and  r2.checkOutDate >= \'${checkout}\')) )`
+    and  ((r2.checkInDate >= \'${checkin}\' and r2.checkInDate <= \'${checkout}\' ) 
+    or (r2.checkOutDate <= \'${checkout}\' and r2.checkOutDate >= \'${checkin}\') 
+    or (r2.checkInDate <= \'${checkin}\' and  r2.checkOutDate >= \'${checkin}\')) )`
     
     console.log(query)
     pool.query(query, (err, results, fields) => {
