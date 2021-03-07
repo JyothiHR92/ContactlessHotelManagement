@@ -112,6 +112,21 @@
 
     <!-- Page Features -->
     <div class="row text-center " id="carddisplay"></div>
+    <div class="col-lg-3 col-md-3 mb-4">
+        <div class="card h-70">
+        <div class="card-body">
+        <h4 class="card-title"  >
+            <script>
+                document.getElementById('cardtitle').value
+            </script> 
+        </h4>
+        <p class="card-text" id = "cardtext" > {{this.res.roomTypeName }}</p>
+        </div>
+        <div class="card-footer">
+        <a href = "selectRoom.html" class="btn btn-primary" id = "select" onclick = "clickSelect()">Select</a>
+        </div>
+        </div>
+    </div>
     <!-- /.row -->
 
   </div>
