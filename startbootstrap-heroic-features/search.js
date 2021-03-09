@@ -45,7 +45,12 @@ function search() {
         <p class="card-text" id = "cardtext" > ${response.data.data[i].roomTypeName}</p>
         </div>
         <div class="card-footer">
-        <a href = "selectRoom.html" class="btn btn-primary" id = "select" onclick = "clickSelect()">Select</a>
+        <form action = "./selectRoom.html">
+        <input type="hidden" id="hotelName" name="HotelName" value = ${response.data.data[i].hotelName}>
+        <input type="hidden" id="roomTypeName" name="roomType" value= ${response.data.data[i].roomTypeName}>
+        <input type = "hidden" id = "roomId" name = "roomId" value = ${response.data.data[i].roomID}>
+        <button class="btn btn-primary" type = "submit" value = "submit"> Select </button>
+        </form>
         </div>
         </div>
         </div>`;
@@ -74,11 +79,7 @@ function search() {
     }
 }
 
-function clickSelect() {
-  console.log('here')
 
-  location.href = "selectRoom.html"
-}
 
 
 
