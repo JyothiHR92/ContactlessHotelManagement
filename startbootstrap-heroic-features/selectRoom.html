@@ -97,7 +97,7 @@
       <!--<a href="#" class="btn btn-primary btn-lg">Call to action!</a>-->
     </header>
     <!-- Page Features -->
-    <div class="row text-center " id="carddisplay"></div>
+    <div class="row text-center " id="carddisplay" ></div>
     <!--<div class="col-lg-3 col-md-3 mb-4">-->
         <div class="card  my-4">
             <div class="card-body">
@@ -111,7 +111,7 @@
                     l_ques_split = lastItem.split('?')
                     amp_split = l_ques_split.pop().split('&')
                     hotel_name = amp_split[0].split('=')[1]
-                    room_type = amp_split[1].split("=")[1]
+                    room_type = amp_split[1].split('=')[1]
                     console.log(hotel_name + room_type)
                     document.getElementById('hname').innerText = 'Hotel Name: '+ hotel_name
                     document.getElementById('rtname').innerText = 'Room Type: '+ room_type
@@ -124,6 +124,47 @@
         </div>
         <!-- /.row -->
     <!--</div>-->
+    <!--form for Customer registeration-->
+    <form id = "register">
+        <div class="form-group">
+            <label for="usernameinput">User Name</label>
+            <input type="text" class="form-control" id="UserName" aria-describedby="userHelp" placeholder="Enter UserName">
+            <!--<small id="userHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <button type="submit mb-10" class="btn btn-primary" id = "submit1" aria-describedby="content"onclick="signUp()" >Register</button>
+        <small id="submit1" class="form-text text-muted">Confirmation code will be sent to your email-id.</small>
+    </form>
+    <!--form for confirmation-->
+    <form id = "confirm" style ="display:none">
+        <label class="sign-lbl" for="code">Code:</label>
+        <input class="sign-inp" id="confirm" type="text" />
+        <div class="login-btns" id = "confirm" aria-describedby="code">
+            <button class="btn btn-primary" onclick="confirmCode()">Confirm</button>
+            <button class="btn btn-primary" onclick="resendCode()">Resend</button>
+        </div>
+        <small id = "code" class = "form-text text-muted">Enter the code sent to your email</small>
+    </form>
+    <!--form for sign in-->
+    <form id = "login" style="display:none">
+        <div class="form-group">
+        <label for="signinemail">User Name</label>
+        <input type="text" class="form-control" id="uname" aria-describedby="uname" placeholder="Enter UserName">
+        </div>
+        <div class="form-group">
+        <label for="pswd1">Password</label>
+        <input type="password" class="form-control" id="pswd1" placeholder="Password">
+        </div>
+        <button type="submit mb-10" class="btn btn-primary" id = "login" aria-describedby="login">Login</button>
+    </form>
 </div>
   <!-- /.container -->
 
@@ -149,5 +190,8 @@
   </script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="search.js"></script>
+  <script src = "config.js"></script>
+  <script src="amazon-cognito-identity.min.js"></script>
+  <script src = "register.js"></script>
 </body>
 </html>
