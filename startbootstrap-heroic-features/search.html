@@ -15,6 +15,9 @@
 
   <!-- Custom styles for this template -->
   <link href="css/heroic-features.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+  integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+  crossorigin="anonymous" />
   <!--<style> 
     #footer { 
         position: fixed; 
@@ -64,7 +67,7 @@
               <!--<label for="datepickerto">Check_out</label>-->
               <input id="datepickerto" name="datepickerto" width="250" type="date" required>
             </div>
-            <div class="btn-group">
+            <!--<div class="btn-group">
               <div class="dropdownshow">
                 <a class="btn btn-secondary dropdown-toggle  mr-sm-2 mt-sm-2" href="#" role="button" id="dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                   Location</a>
@@ -73,6 +76,14 @@
                   <a class="dropdown-item" href="#">SantaClara</a>
                   <a class="dropdown-item" href="#">SanFrancisco</a>
                 </div>
+              </div>-->
+              <div class="form-group">
+                <select class="btn btn-secondary form-control mr-sm-2 mt-sm-2" id = "location" name="location" aria-expanded="false">
+                    <option>Location</option>
+                    <option>SanJose</option>
+                    <option>SantaClara</option>
+                    <option>SanFrancisco</option>
+                </select>
               </div>
             
             <!--<div class="btn-group"></div>-->
@@ -87,13 +98,13 @@
               </div>
             </div> -->
             <div class="form-group">
-              <select class="btn btn-secondary form-control mr-sm-3 mt-sm-2" id = "guests" onclick="getguests()"name="guests" aria-expanded="false">
+              <select class="btn btn-secondary form-control ml-sm-2 mr-sm-3 mt-sm-2" id = "guests" onclick="getguests()"name="guests" aria-expanded="false">
                   <option>No of guests</option>
                   <option>1</option>
                   <option>2</option>
               </select>
             </div>
-            <button class="btn btn-secondary ml-3 mt-sm-2 mb-sm-3 "  onclick="search()" type="submit">Search</button>
+            <button class="btn btn-secondary ml-sm-3 mt-sm-2 mb-sm-3 "  onclick="search()" type="submit">Search</button>
           <!--</form>-->
         </ul>
       </div>
@@ -140,7 +151,12 @@
   </script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="search.js"></script>
-  
+  <script src="amazon-cognito-identity.min.js"></script>
+  <script src="config.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous">
+    </script>
 
 
 </body>

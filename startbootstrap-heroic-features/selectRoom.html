@@ -15,6 +15,10 @@
 
   <!-- Custom styles for this template -->
   <link href="css/heroic-features.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" />
 </head>
 
 <body>
@@ -52,7 +56,7 @@
               <!--<label for="datepickerto">Check_out</label>-->
               <input id="datepickerto" name="datepickerto" width="250" type="date" required>
             </div>
-            <div class="btn-group">
+            <!--<div class="btn-group">
               <div class="dropdownshow">
                 <a class="btn btn-secondary dropdown-toggle  mr-sm-2 mt-sm-2" href="#" role="button" id="dropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                   Location</a>
@@ -61,6 +65,14 @@
                   <a class="dropdown-item" href="#">SantaClara</a>
                   <a class="dropdown-item" href="#">SanFrancisco</a>
                 </div>
+              </div>-->
+              <div class="form-group">
+                <select class="btn btn-secondary form-control mr-sm-2 mt-sm-2" id = "location" name="location" aria-expanded="false">
+                    <option>Location</option>
+                    <option>SanJose</option>
+                    <option>SantaClara</option>
+                    <option>SanFrancisco</option>
+                </select>
               </div>
             
             <!--<div class="btn-group"></div>-->
@@ -103,6 +115,8 @@
             <div class="card-body">
                 <h4 class="card-title" id = "hname" >Hotel Name: </h4>
                 <p class="card-text" id = "rtname" >Room Type : </p>
+                <p class="card-text" id ="cin"> </p>
+                <p class="card-text" id ="cout"></p>
                 <script type = "text/javascript">
                     var l = window.location.href;
                     l_split = l.split('/')
@@ -112,9 +126,13 @@
                     amp_split = l_ques_split.pop().split('&')
                     hotel_name = amp_split[0].split('=')[1]
                     room_type = amp_split[1].split('=')[1]
+                    c_in = amp_split[3].split('=')[1]
+                    c_out = amp_split[4].split('=')[1]
                     console.log(hotel_name + room_type)
                     document.getElementById('hname').innerText = 'Hotel Name: '+ hotel_name
                     document.getElementById('rtname').innerText = 'Room Type: '+ room_type
+                    document.getElementById('cin').innerText = 'Check-In: ' + c_in
+                    document.getElementById('cout').innerText = 'check-Out: '+ c_out
                 </script>
             </div>
                 <!--<div class="card-footer">
@@ -141,17 +159,19 @@
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         <button type="submit mb-10" class="btn btn-primary" id = "submit1" aria-describedby="content"onclick="signUp()" >Register</button>
+        <button type="submit mb-10" class="btn btn-primary" id = "login_opt" onclick="loginopt()" aria-describedby="login_opt">Login</button>
         <small id="submit1" class="form-text text-muted">Confirmation code will be sent to your email-id.</small>
     </form>
     <!--form for confirmation-->
-    <form id = "confirm" style ="display:none">
-        <label class="sign-lbl" for="code">Code:</label>
-        <input class="sign-inp" id="confirm" type="text" />
-        <div class="login-btns" id = "confirm" aria-describedby="code">
+    <form class="signup-container" id = "signupconfirm" style = "display: none;">
+        <div class="signup-item">
+            <label class="sign-lbl" for="code">Code:</label>
+            <input class="sign-inp" id="confirm" type="text" />
+        </div>
+        <div class="login-btns">
             <button class="btn btn-primary" onclick="confirmCode()">Confirm</button>
             <button class="btn btn-primary" onclick="resendCode()">Resend</button>
         </div>
-        <small id = "code" class = "form-text text-muted">Enter the code sent to your email</small>
     </form>
     <!--form for sign in-->
     <form id = "login" style="display:none">
@@ -163,7 +183,27 @@
         <label for="pswd1">Password</label>
         <input type="password" class="form-control" id="pswd1" placeholder="Password">
         </div>
-        <button type="submit mb-10" class="btn btn-primary" id = "login" aria-describedby="login">Login</button>
+        <button type="submit mb-10" class="btn btn-primary" id = "login" onclick="signIn()" aria-describedby="login">Login</button>
+    </form>
+    <form id = "customerdetails" style="display:none">
+      <div class="form-group">
+        <label for="fname">Customer Name</label>
+        <input type="text" class="form-control" id="fname" aria-describedby="fname" placeholder="Enter Name">
+        </div>
+        <div class="form-group">
+        <label for="email">email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+        <label for="street">address</label>
+        <input type = "text" class="form-control" id = "street" placeholder="Enter address">
+        </div>
+        <div class="form-group">
+        <label for="contact">contact Number</label>
+        <input type = "text" class="form-control" id ="contactnumber" placeholder="Enter Phone Number">
+        </div>
+        <button type="submit mb-10" class="btn btn-primary" id = "save" onclick="save()" aria-describedby="save">Save</button>
+        <small id="save" class="form-text text-muted">Enter all your details and click save</small>
     </form>
 </div>
   <!-- /.container -->
@@ -189,9 +229,14 @@
     });
   </script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous">
+    </script>
   <script src="search.js"></script>
   <script src = "config.js"></script>
   <script src="amazon-cognito-identity.min.js"></script>
   <script src = "register.js"></script>
+  <script src = "loginopt.js"></script>
 </body>
 </html>
