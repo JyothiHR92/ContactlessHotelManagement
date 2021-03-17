@@ -51,7 +51,37 @@ app.get('/searchHotel', (req, res) => {
       res.send(response)
     })
   })
-  
+// Handler to post the data into customer table
+app.post('/customer', (req, res) => {
+  const customerID = req.query.customerID
+  const customerName = req.query.customerName
+  const email = req.query.email
+  const address = req.query.address
+  const contactNum  = req.query.contactNum
+  console.log("inside lambda function for POST customer")
+  let query = `INSERT INTO CustomerDetails (customerID, customerName, email, address, contactNum) VALUES ('${customerID}', '${customerName}', '${email}', '${address}', '${contactNum}')`
+  pool.query(query, (err, results, fields) => {
+    if (err) {
+      const response = { data: null, message: err.message, }
+      return res.send(response)
+      
+    }
+    console.log(results)
+    const id = results.insertId;
+    const customer = {  customerID, customerName, email, address, contactNum }
+    const response = {
+      headers: {
+        "Access-Control-Allow-Headers" : "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"
+        //"Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      },
+      data: customer,
+      message: `Customer ${customerID} successfully added.`,
+    }
+    return res.status(201).send(response);
+  })
+})
 
 
 module.exports.handler = serverless(app)

@@ -16,6 +16,10 @@ functions:
           path: searchHotel
           method: get
           cors : true
+      - http:
+          path: customer
+          method: post
+          cors: true
      
 
 plugins:

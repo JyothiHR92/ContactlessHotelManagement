@@ -202,8 +202,10 @@
         <label for="contact">contact Number</label>
         <input type = "text" class="form-control" id ="contactnumber" placeholder="Enter Phone Number">
         </div>
-        <button type="submit mb-10" class="btn btn-primary" id = "save" onclick="save()" aria-describedby="save">Save</button>
+        <form action = "./reserve.html">
+        <button type="reset mb-10" class="btn btn-primary" id = "save" onclick="saveReservation()" aria-describedby="save">Save</button>
         <small id="save" class="form-text text-muted">Enter all your details and click save</small>
+        </form>
     </form>
 </div>
   <!-- /.container -->
@@ -237,6 +239,6 @@
   <script src = "config.js"></script>
   <script src="amazon-cognito-identity.min.js"></script>
   <script src = "register.js"></script>
-  <script src = "loginopt.js"></script>
+  <script type = "text/javascript" src = "customer.js"></script>
 </body>
 </html>
