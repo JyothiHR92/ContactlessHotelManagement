@@ -57,6 +57,8 @@ function search() {
         <input type = "hidden" id = "roomId" name = "roomId" value = ${response.data.data[i].roomID}>
         <input type = "hidden" id = "cin" name = "cin" value = ${checkin}>
         <input type = "hidden" id = "cout" name = "cout" value = ${checkout}>
+        <input type = "hidden" id = "hid" name = "hid" value = ${response.data.data[i].hotelId}>
+        <input type = "hidden" id = "rtid" name = "rtid" value = ${response.data.data[i].roomTypeID}>
         <button class="btn btn-primary" type = "submit" value = "submit"> Select </button>
         </form>
         </div>

@@ -126,9 +126,20 @@
                     amp_split = l_ques_split.pop().split('&')
                     hotel_name = amp_split[0].split('=')[1]
                     room_type = amp_split[1].split('=')[1]
+                    room_id = amp_split[2].split('=')[1]
                     c_in = amp_split[3].split('=')[1]
                     c_out = amp_split[4].split('=')[1]
+                    hotel_id = amp_split[5].split('=')[1]
+                    roomtype_id = amp_split[6].split('=')[1]
+                    sessionStorage.setItem('hotel_name', hotel_name)
+                    sessionStorage.setItem('room_type', room_type)
+                    sessionStorage.setItem('room_id', room_id)
+                    sessionStorage.setItem('checkin', c_in)
+                    sessionStorage.setItem('checkout', c_out)
+                    sessionStorage.setItem('hotel_id', hotel_id)
+                    sessionStorage.setItem('roomtype_id', roomtype_id)
                     console.log(hotel_name + room_type)
+                    console.log(sessionStorage)
                     document.getElementById('hname').innerText = 'Hotel Name: '+ hotel_name
                     document.getElementById('rtname').innerText = 'Room Type: '+ room_type
                     document.getElementById('cin').innerText = 'Check-In: ' + c_in
@@ -159,7 +170,7 @@
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         <button type="submit mb-10" class="btn btn-primary" id = "submit1" aria-describedby="content"onclick="signUp()" >Register</button>
-        <button type="submit mb-10" class="btn btn-primary" id = "login_opt" onclick="loginopt()" aria-describedby="login_opt">Login</button>
+        <!--<button type="submit mb-10" class="btn btn-primary" id = "login_opt" onclick="loginopt()" aria-describedby="login_opt">Login</button>-->
         <small id="submit1" class="form-text text-muted">Confirmation code will be sent to your email-id.</small>
     </form>
     <!--form for confirmation-->
@@ -203,7 +214,7 @@
         <input type = "text" class="form-control" id ="contactnumber" placeholder="Enter Phone Number">
         </div>
         <form action = "./reserve.html">
-        <button type="reset mb-10" class="btn btn-primary" id = "save" onclick="saveReservation()" aria-describedby="save">Save</button>
+        <button type="submit mb-10" class="btn btn-primary" id = "save" onclick="saveReservation()" aria-describedby="save">Save</button>
         <small id="save" class="form-text text-muted">Enter all your details and click save</small>
         </form>
     </form>
@@ -240,5 +251,5 @@
   <script src="amazon-cognito-identity.min.js"></script>
   <script src = "register.js"></script>
   <script type = "text/javascript" src = "customer.js"></script>
-</body>
+  </body>
 </html>

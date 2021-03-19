@@ -13,7 +13,7 @@ const signUp = () => {
 
     userPool.signUp(username, password, [email], null, function (err, result) {
         if (err) {
-          alert(err);
+          alert(JSON.stringify(err));
         } else {
            document.getElementById("register").style = "display:none";
           document.getElementById("signupconfirm").style = "display:block";
@@ -35,7 +35,7 @@ const confirmCode = () => {
     console.log("code =" + code);
     cognitoUser.confirmRegistration(code, true, function (err, results) {
       if (err) {
-        alert(err);
+        alert(JSON.stringify(err));
       } else {
         console.log("confirmed");
         document.getElementById("register").style = "display:none";
@@ -81,4 +81,41 @@ const signIn = () => {
   });
 };
 
-  
+const checkLogin = () => {
+  console.log("checking login..");
+  const login = false;
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  //const userBtn = document.querySelector(".user");
+  var cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser != null) {
+      
+      //userBtn.innerHTML += cognitoUser.username;
+      getUserAttributes();
+      
+     
+  } 
+};
+
+function getUserAttributes(){
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  let cognitoUser = userPool.getCurrentUser();
+
+  if (cognitoUser != null) {
+      cognitoUser.getSession(function (err, session) {
+
+          cognitoUser.getUserAttributes(function(err, result) {
+              if (err) {
+                  console.log(err);
+                  return;
+              }
+              for (let i = 0; i < result.length; i++) {
+                  console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue());
+                  sessionStorage.setItem(result[i].getName(), result[i].getValue())
+                  console.log(sessionStorage)
+              }
+          });
+
+      });
+  }
+
+}

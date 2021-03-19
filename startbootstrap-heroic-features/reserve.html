@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+      
+        <title>Heroic Features - Start Bootstrap Template</title>
+      
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      
+        <!-- Custom styles for this template -->
+        <link href="css/heroic-features.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+              integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+              crossorigin="anonymous" />
+</head>
+<body>
+    <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+    </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">User Dashboard!</h1>
+      <!--<p class="lead"></p>-->
+      <!--<a href="#" class="btn btn-primary btn-lg">Call to action!</a>-->
+    </header>
+
+    <!-- Page Features -->
+    <div class="row text-center " id="carddisplay"></div>
+        <div class="card  my-4">
+            <div class="card-body">
+                <h4 class="card-title" id = "hotel_name" >Hotel Name: </h4>
+                <p class="card-text" id = "rtn-ame" >Room Type : </p>
+                <p class="card-text" id ="c_in">Check_in:</p>
+                <p class="card-text" id ="c_out">Check_out:</p>
+                <script type = "text/javascript">
+                 let hotel_name = sessionStorage.getItem('hotel_name');
+                let room_type = sessionStorage.getItem('room_type');
+                let checkin = sessionStorage.getItem('checkin');
+                let checkout = sessionStorage.getItem('checkout');
+                console.log(hotel_name)
+                console.log(room_type)
+
+                document.getElementById('hotel_name').innerText = 'Hotel Name: ' + hotel_name;
+                document.getElementById('rtn-ame').innerText = 'Room_Type: ' + room_type;
+                document.getElementById('c_in').innerText = 'Check_In: ' + checkin
+                document.getElementById('c_out').innerText= 'Check_Out: ' + checkout
+                </script>
+            </div>
+        </div>
+        <button type="submit mb-10" class="btn btn-primary" id = "bk" onclick="book()" aria-describedby="bk">Book&Pay</button>
+        <small id="bk" class="form-text text-muted">Redirected to payment gateway</small>
+    <!-- /.row -->
+
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 i bg-dark mb-0" id = "footer">
+    <div class="container mb-0">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous">
+    </script>
+  <script src="search.js"></script>
+  <script src = "config.js"></script>
+  <script src="amazon-cognito-identity.min.js"></script>
+  <script src = "register.js"></script>
+  <script type = "text/javascript" src = "customer.js"></script>
+  <script type="text/javascript">
+    checkLogin();
+</script>
+  </body>
+</html>
+
+      
+      
+      
