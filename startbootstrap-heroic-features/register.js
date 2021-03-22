@@ -91,8 +91,6 @@ const checkLogin = () => {
       
       //userBtn.innerHTML += cognitoUser.username;
       getUserAttributes();
-      
-     
   } 
 };
 
@@ -117,5 +115,9 @@ function getUserAttributes(){
 
       });
   }
-
+  
 }
+
+
+
+ 

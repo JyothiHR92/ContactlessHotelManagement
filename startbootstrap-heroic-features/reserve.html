@@ -20,7 +20,7 @@
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
               integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
               crossorigin="anonymous" />
-</head>
+             
 <body>
     <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -64,6 +64,7 @@
                 document.getElementById('rtn-ame').innerText = 'Room_Type: ' + room_type;
                 document.getElementById('c_in').innerText = 'Check_In: ' + checkin
                 document.getElementById('c_out').innerText= 'Check_Out: ' + checkout
+                
                 </script>
             </div>
         </div>
@@ -94,10 +95,11 @@
   <script src = "config.js"></script>
   <script src="amazon-cognito-identity.min.js"></script>
   <script src = "register.js"></script>
-  <script type = "text/javascript" src = "customer.js"></script>
-  <script type="text/javascript">
+  <!--<script type="text/javascript">
     checkLogin();
-</script>
+    </script>-->
+  <script type = "text/javascript" src = "customer.js"></script>
+ 
   </body>
 </html>
 
