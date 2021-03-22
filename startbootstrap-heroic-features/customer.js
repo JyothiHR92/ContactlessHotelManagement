@@ -1,5 +1,5 @@
 
-
+//Save user details to customer database
 const saveReservation = () => {
  
   
@@ -38,13 +38,23 @@ function getUserAttributes(){
               console.log(addr)
               let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/customer?customerID='+cid+'&&customerName='+cname+'&&email='+email+'&&address='+addr+'&&contactNum='+contact_number;
               console.log(url)
-              console.log(window.location.href)
-              location.href = "reserve.html"
+              axios.post(url)
+                .then(function (response) {
+                  //resultElement.innerHTML = generateSuccessHTMLOutput(response);
+                  console.log(response)
+                  console.log('here')
+                  console.log(window.location.href)
+                  location.href = "reserve.html"
+                  alert('Data saved successfully')
+                })
+              .catch(function (error) {
+                console.log(error)
+              });
+             
+            });
           });
+        }
 
-      });
-  }
-  return;
 }
 
  
