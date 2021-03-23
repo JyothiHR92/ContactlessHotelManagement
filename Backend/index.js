@@ -83,6 +83,42 @@ app.post('/customer', (req, res) => {
   })
 })
 
+//Handler to Post the data into Reservation table
+app.post('/book', (req, res) => {
+  const reservationID = req.query.reservationID
+  const hotelID = req.query.hotelID
+  const roomID = req.query.roomID
+  const customerID = req.query.customerID
+  const isCheckedIn = false
+  const checkInDate = req.query.checkInDate
+  const extraBed = 0
+  const isCheckedOut = false
+  const checkOutDate = req.query.checkOutDate
+  console.log("inside lambda function for POST reservations")
+  let query = `INSERT INTO Reservations(reservationID, hotelID, roomID, customerID, extraBed, isCheckedIn, checkInDate, isCheckedOut, checkOutDate) VALUES ('${reservationID}', '${hotelID}', '${roomID}', '${customerID}', '${extraBed}','${isCheckedIn}','${checkInDate}','${isCheckedOut}','${checkOutDate}')`
+  console.log(query)
+  pool.query(query, (err, results, fields) => {
+    if (err) {
+      const response = { data: null, message: err.message, }
+      return res.send(response)
+      
+    }
+    console.log(results)
+    const id = results.insertId;
+    const reservation = { reservationID, hotelID, roomID, customerID, extraBed, isCheckedIn, checkInDate, isCheckedOut, checkOutDate }
+    const response = {
+      headers: {
+        "Access-Control-Allow-Headers" : "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"
+        //"Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      },
+      data: reservation,
+      message: `Reservation ${reservationID} successfully added.`,
+    }
+    return res.status(201).send(response);
+  })
+})
 
 module.exports.handler = serverless(app)
 

@@ -20,6 +20,11 @@ functions:
           path: customer
           method: post
           cors: true
+      - http:
+          path: book
+          method: post
+          cors: true
+      
      
 
 plugins:
