@@ -4,6 +4,7 @@ var cors = require('cors')
 const serverless = require('serverless-http')
 const bodyParser = require('body-parser')
 const pool = require('./configs/dbconfig')
+const { v4: uuidv4 } = require('uuid');
 
 const app = express()
 
@@ -85,7 +86,7 @@ app.post('/customer', (req, res) => {
 
 //Handler to Post the data into Reservation table
 app.post('/book', (req, res) => {
-  const reservationID = req.query.reservationID
+  const reservationID = uuidv4();
   const hotelID = req.query.hotelID
   const roomID = req.query.roomID
   const customerID = req.query.customerID

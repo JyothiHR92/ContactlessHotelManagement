@@ -59,6 +59,48 @@ function getUserAttributes(){
 
 
 //Book and payment
+const book= () => { 
+  event.preventDefault();
+  getCurrentUser();
+}
 
+function getCurrentUser() {
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  let cognitoUser = userPool.getCurrentUser();
+ 
+  console.log('inside book function')
+  if (cognitoUser != null) {
+    cognitoUser.getSession(function (err, session) {
+
+        cognitoUser.getUserAttributes(function(err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            for (let i = 0; i < result.length; i++) {
+                console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue());
+                sessionStorage.setItem(result[i].getName(), result[i].getValue())
+                console.log(sessionStorage)
+            }
+            let hotel_id = sessionStorage.getItem('hotel_id')
+            let room_id = sessionStorage.getItem('room_id')
+            let customer_id = sessionStorage.getItem('sub')
+            let checkin = sessionStorage.getItem('checkin')
+            let checkout = sessionStorage.getItem('checkout')
+            let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/book?hotelID='+hotel_id+'&&roomID='+room_id+'&&customerID='+customer_id+'&&checkInDate='+checkin+'&&checkOutDate='+checkout;
+            console.log(url)
+            axios.post(url)
+                .then(function (response) {
+                  //resultElement.innerHTML = generateSuccessHTMLOutput(response);
+                  console.log(response)
+                  console.log('here in post of reservation')
+                  console.log(window.location.href)
+                  location.href = "dashboard.html"
+                  alert('Booked room successfully')
+                })
+          });
+      });
+  }
+}
 
  
