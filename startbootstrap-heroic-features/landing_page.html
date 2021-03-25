@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Heroic Features - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/heroic-features.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+  integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+  crossorigin="anonymous" />
+  <!--<style> 
+    #footer { 
+        position: fixed; 
+        padding: 10px 10px 0px 10px; 
+        bottom: 0; 
+        width: 100%; 
+        /* Height of the footer*/  
+        height: 40px; 
+        
+    } 
+</style> -->
+
+</head>
+
+<body>
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark  fixed-top" style = "background-color:#ff9800;">
+    <div class="container">
+      <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <button class="btn btn-primary my-2 mr-sm-2" type="submit" >Admin Dashboard</button>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-primary my-2 mr-sm-2" onclick="searchHotels()"type="submit" >Search Hotels</button>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-primary my-2 mr-sm-0" onclick="landingLogin()" type="submit" >Login</button>
+              </li>   
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Jumbotron Header -->
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Landing Page</h1>
+      <!--<p class="lead"></p>-->
+      <!--<a href="#" class="btn btn-primary btn-lg">Call to action!</a>-->
+    </header>
+
+    <!-- Page Features -->
+    <div class="row text-center " id="carddisplay"></div>
+    <!-- /.row -->
+    <form id = "landing_login" style="display: none;">
+        <div class="form-group">
+          <label for="landinglogin">User Name</label>
+          <input type="text" class="form-control" id="landingusername" aria-describedby="lanusername" placeholder="Enter Usename">
+        </div>
+        <div class="form-group">
+          <label for="landing_pswd">password</label>
+          <input type="password" class="form-control" id="landing_pswd" placeholder="password">
+        </div>
+        <button type="submit mb-10" class="btn btn-primary" id="land_login" onclick="landLogin()" aria-describedby="login">Login</button>
+    </form>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 i  mb-0 footer-expand-lg" id = "footer" style="background-color: #ff9800;">
+    <div class="container mb-0">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(".dropdown-menu a ").click(function(){
+      $(this).parents(".dropdownshow").find('.btn').text($(this).text());
+    });
+
+    $(".dropdown-menu a ").click(function(){
+      var text = $(this).parents(".dropdownguests").find('.btn').text($(this).text());
+    
+    });
+  </script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="search.js"></script>
+  <script src="landingPage.js"></script>
+  <script src="amazon-cognito-identity.min.js"></script>
+  <script src="config.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous">
+    </script>
+
+
+</body>
+
+</html>
