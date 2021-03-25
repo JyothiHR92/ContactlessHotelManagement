@@ -118,6 +118,13 @@ function getUserAttributes(){
   
 }
 
-
+//cognito login for registered user
+const loginopt = () => {
+  event.preventDefault();
+  document.getElementById("register").style = "display:none";
+  document.getElementById("signupconfirm").style = "display:none";
+  document.getElementById("login").style = "display:none";
+  document.getElementById("gen_login").style = "display:block";
+};
 
  

@@ -103,4 +103,62 @@ function getCurrentUser() {
   }
 }
 
+//Customer Login without Registeration
+const signInUser = () => {
+  event.preventDefault();
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  
+  const username = document.getElementById("signinusername").value;
+  const password = document.getElementById("passwordforsignin").value;
+
+  let authenticationData = {
+    Username: username,
+    Password: password,
+  };
+
+  var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
+    authenticationData
+  );
+  var userData = {
+    Username: username,
+    Pool: userPool,
+  };
+
+  var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+  cognitoUser.authenticateUser(authenticationDetails, {
+    onSuccess: function () {
+      console.log("login success");
+      console.log(cognitoUser)
+      getCurrentUserForDisplay();
+      
+    },
+    onFailure: function (err) {
+      alert(JSON.stringify(err));
+    },
+  });
+};
+
+function getCurrentUserForDisplay() {
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  let cognitoUser = userPool.getCurrentUser();
+ 
+  console.log('inside getcurrentuserfordiaplay function')
+  if (cognitoUser != null) {
+    cognitoUser.getSession(function (err, session) {
+
+        cognitoUser.getUserAttributes(function(err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            for (let i = 0; i < result.length; i++) {
+                console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue());
+                sessionStorage.setItem(result[i].getName(), result[i].getValue())
+                console.log(sessionStorage)
+            }
+            location.href = "reserve.html"
+          });
+      });
+  }
+}
  

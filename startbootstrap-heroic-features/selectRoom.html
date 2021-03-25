@@ -24,7 +24,7 @@
 <body>
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #ff9800;">
     <div class="container">
       <a class="navbar-brand" href="#">Start Bootstrap</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@
                 </div>
               </div>-->
               <div class="form-group">
-                <select class="btn btn-secondary form-control mr-sm-2 mt-sm-2" id = "location" name="location" aria-expanded="false">
+                <select class="btn btn-primary form-control mr-sm-2 mt-sm-2" id = "location" name="location" aria-expanded="false">
                     <option>Location</option>
                     <option>SanJose</option>
                     <option>SantaClara</option>
@@ -87,13 +87,13 @@
               </div>
             </div> -->
             <div class="form-group">
-              <select class="btn btn-secondary form-control mr-sm-3 mt-sm-2" id = "guests" onclick="getguests()"name="guests" aria-expanded="false">
+              <select class="btn btn-primary form-control ml-sm-2 mr-sm-3 mt-sm-2" id = "guests" onclick="getguests()"name="guests" aria-expanded="false">
                   <option>No of guests</option>
                   <option>1</option>
                   <option>2</option>
               </select>
             </div>
-            <button class="btn btn-secondary ml-3 mt-sm-2 mb-sm-3 "  onclick="search()" type="submit">Search</button>
+            <button class="btn btn-primary l-sm-3 mt-sm-2 mb-sm-3"  onclick="search()" type="submit">Search</button>
           <!--</form>-->
         </ul>
       </div>
@@ -170,7 +170,7 @@
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         <button type="submit mb-10" class="btn btn-primary" id = "submit1" aria-describedby="content"onclick="signUp()" >Register</button>
-        <!--<button type="submit mb-10" class="btn btn-primary" id = "login_opt" onclick="loginopt()" aria-describedby="login_opt">Login</button>-->
+        <button type="submit mb-10" class="btn btn-primary" id = "login_opt" onclick="loginopt()" aria-describedby="login_opt">Login</button>
         <small id="submit1" class="form-text text-muted">Confirmation code will be sent to your email-id.</small>
     </form>
     <!--form for confirmation-->
@@ -195,6 +195,17 @@
         <input type="password" class="form-control" id="pswd1" placeholder="Password">
         </div>
         <button type="submit mb-10" class="btn btn-primary" id = "login" onclick="signIn()" aria-describedby="login">Login</button>
+    </form>
+    <form id = "gen_login" style="display: none;">
+      <div class="form-group">
+        <label for="signinlogin">User Name</label>
+        <input type="text" class="form-control" id="signinusername" aria-describedby="username" placeholder="Enter Usename">
+      </div>
+      <div class="form-group">
+        <label for="passwordforsignin">password</label>
+        <input type="password" class="form-control" id="passwordforsignin" placeholder="password">
+      </div>
+      <button tyoe="submit mb-10" class="btn btn-primary" id="storedlogin" onclick="signInUser()" aria-describedby="login">Login</button>
     </form>
     <form id = "customerdetails" style="display:none">
       <div class="form-group">
@@ -222,7 +233,7 @@
   <!-- /.container -->
 
   <!-- Footer -->
-  <footer class="py-5 i bg-dark mb-0" id = "footer">
+  <footer class="py-5 i  mb-0" id = "footer" style="background-color:#ff9800">
     <div class="container mb-0">
       <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
     </div>
