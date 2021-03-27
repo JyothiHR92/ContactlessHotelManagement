@@ -17,6 +17,7 @@ const landLogin = () => {
     
     const username = document.getElementById("landingusername").value;
     const password = document.getElementById("landing_pswd").value;
+    console.log(username)
   
     let authenticationData = {
       Username: username,
@@ -36,6 +37,7 @@ const landLogin = () => {
       onSuccess: function () {
         console.log("login success");
         console.log(cognitoUser)
+        sessionStorage.setItem('username',userData.Username)
         getCurrentUserForDisplay();
         
       },
@@ -63,6 +65,7 @@ const landLogin = () => {
                   sessionStorage.setItem(result[i].getName(), result[i].getValue())
                   console.log(sessionStorage.getItem('sub'))
               }
+              
               location.href = "dashboard.html"
             });
         });
