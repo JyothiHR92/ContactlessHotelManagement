@@ -115,17 +115,19 @@
           <div class="card">
               <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
-                      <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#collapseOne">1. What is HTML?</button>									
+                      <button type="button" class="btn btn-link"  data-toggle="collapse" data-target="#collapseOne">1. View Reservation</button>									
                   </h2>
               </div>
               <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                   <div class="card-body" id="viewreservation">
                     <p>
-                    <h5 class="card-title">Reservation:</h5>
-                    <p class="card-text">Checkin-Date:</p>
-                    <p class="card-text">checkout-Date:</p>
-                    <p class="card-text">Hotel Name:</p>
-                    <p class="card-text">Hotel Address:</p>
+                    <h5 class="card-title">Reservation Details:</h5>
+                    <p class="card-text" id="checkin">Checkin-Date:</p>
+                    <p class="card-text" id="checkout">checkout-Date:</p>
+                    <p class="card-text" id="hotelname">Hotel Name:</p>
+                    <p class="card-text" id="roomnumber">Room Number:</p>
+                    <p class="card-text" id="hoteladdress">Hotel Address:</p>
+                    <p class="card-text" id="hotelzipcode">Hotel Zipcode:</p>
                     <button class="btn btn-primary" type="submit" onclick="cancelReservation()">Cancel Reservation</button>
                     </p>
                   </div>
@@ -134,10 +136,10 @@
           <div class="card">
               <div class="card-header" id="headingTwo">
                   <h2 class="mb-0">
-                      <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo">2. What is Bootstrap?</button>
+                      <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo">2. CheckIn</button>
                   </h2>
               </div>
-              <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                   <div class="card-body">
                       <p>Bootstrap is a sleek, intuitive, and powerful front-end framework for faster and easier web development. It is a collection of CSS and HTML conventions. <a href="https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
                   </div>
@@ -146,7 +148,7 @@
           <div class="card">
               <div class="card-header" id="headingThree">
                   <h2 class="mb-0">
-                      <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree">3. What is CSS?</button>                     
+                      <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree">3. Profile Details</button>                     
                   </h2>
               </div>
               <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">

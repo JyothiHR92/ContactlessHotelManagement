@@ -24,7 +24,10 @@ functions:
           path: book
           method: post
           cors: true
-      
+      - http:
+          path: getReservation
+          method: get
+          cors: true
      
 
 plugins:

@@ -121,5 +121,41 @@ app.post('/book', (req, res) => {
   })
 })
 
+//Handler to get the Reservation details of the user
+app.get('/getReservation', (req, res) => {
+  //const location = req.query.location
+  const cust_id = req.query.customer_id
+  
+  console.log('inside get reservation')
+  let query = `select r.checkInDate, r.checkOutDate, rm.roomNum,rt.roomTypeName, h.hotelName,h.address,h.location,h.zipcode from Reservations r
+  inner join Rooms rm inner join RoomType rt inner join Hotel h
+   where r.roomID = rm.roomID and rm.roomTypeID = rt.roomTypeID
+   and r.hotelID = h.hotelID
+   and r.customerID = \'${cust_id}\'`;
+  console.log(query)
+  pool.query(query, (err, results, fields) => {
+    if (err) {
+      const response = { data: null, message: err.message, }
+      res.send(response)
+    }
+    console.log('here')
+    console.log(JSON.stringify(results))
+    console.log(typeof(results))
+    const ans = results
+    const response = {
+      statusCode: 200,
+      headers: {
+          "Access-Control-Allow-Headers" : "Content-Type",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+          //"Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      },
+      data: ans,
+      message: 'reservation successfully retrieved.',
+    }
+    res.send(response)
+  })
+})
+
 module.exports.handler = serverless(app)
 
