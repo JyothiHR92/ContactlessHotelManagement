@@ -5,6 +5,7 @@ const serverless = require('serverless-http')
 const bodyParser = require('body-parser')
 const pool = require('./configs/dbconfig')
 const { v4: uuidv4 } = require('uuid');
+const moment = require('moment');
 
 const app = express()
 
@@ -92,6 +93,8 @@ app.post('/book', (req, res) => {
   const customerID = req.query.customerID
   const isCheckedIn = false
   const checkInDate = req.query.checkInDate
+  //checkInDate = moment(checkInDate).format('YYYY-MM-DD HH:mm:ss');
+  //const t = "14:00"
   const extraBed = 0
   const isCheckedOut = false
   const checkOutDate = req.query.checkOutDate
@@ -127,7 +130,7 @@ app.get('/getReservation', (req, res) => {
   const cust_id = req.query.customer_id
   
   console.log('inside get reservation')
-  let query = `select r.checkInDate, r.checkOutDate, rm.roomNum,rt.roomTypeName, h.hotelName,h.address,h.location,h.zipcode from Reservations r
+  let query = `select r.checkInDate, r.checkOutDate, r.reservationID, rm.roomNum,rt.roomTypeName, h.hotelName,h.address,h.location,h.zipcode from Reservations r
   inner join Rooms rm inner join RoomType rt inner join Hotel h
    where r.roomID = rm.roomID and rm.roomTypeID = rt.roomTypeID
    and r.hotelID = h.hotelID
