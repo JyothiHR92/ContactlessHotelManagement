@@ -157,5 +157,38 @@ app.get('/getReservation', (req, res) => {
   })
 })
 
+//delete the reservation by reservation ID
+app.delete('/cancelReservation', (req, res) => {
+  //const location = req.query.location
+  const res_id = req.query.reservationID
+  
+  console.log('inside delete reservation')
+  let query = `delete from Reservations where reservationID=\'${res_id}\'`;
+  console.log(query)
+  pool.query(query, (err, results, fields) => {
+    if (err) {
+      const response = { data: null, message: err.message, }
+      res.send(response)
+    }
+    console.log('here')
+    console.log(JSON.stringify(results))
+    console.log(typeof(results))
+    const ans = results
+    const response = {
+      statusCode: 200,
+      headers: {
+          "Access-Control-Allow-Headers" : "Content-Type",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE"
+          //"Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      },
+      data: null,
+      message: `reservation \'${res_id}\'successfully cancelled.`,
+    }
+    res.send(response)
+  })
+})
+
+
 module.exports.handler = serverless(app)
 

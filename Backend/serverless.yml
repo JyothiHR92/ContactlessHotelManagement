@@ -28,7 +28,11 @@ functions:
           path: getReservation
           method: get
           cors: true
-     
+      - http:
+          path: cancelReservation
+          method: delete
+          cors: true
+        
 
 plugins:
   - serverless-offline
