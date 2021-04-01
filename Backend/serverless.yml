@@ -32,7 +32,13 @@ functions:
           path: cancelReservation
           method: delete
           cors: true
-        
-
+      - http:
+          path: getCustomerDetails
+          method: get
+          cors: true
+      - http:
+          path: updateCustomer
+          method: put
+          cors: true
 plugins:
   - serverless-offline

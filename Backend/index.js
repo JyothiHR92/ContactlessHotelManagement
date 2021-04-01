@@ -192,6 +192,76 @@ app.delete('/cancelReservation', (req, res) => {
   })
 })
 
+//get customer details
+app.get('/getCustomerDetails', (req, res) => {
+  //const location = req.query.location
+  const cust_id = req.query.customer_id
+  
+  console.log('inside get customer')
+  let query = `select * from CustomerDetails where customerID=\'${cust_id}\'`;
+  console.log(query)
+  pool.query(query, (err, results, fields) => {
+    if (err) {
+      const response = { data: null, message: err.message, }
+      res.send(response)
+    }
+    console.log('here')
+    console.log(JSON.stringify(results))
+    console.log(typeof(results))
+    const ans = results
+    const response = {
+      statusCode: 200,
+      headers: {
+          "Access-Control-Allow-Headers" : "Content-Type",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"
+          //"Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      },
+      data: ans,
+      message: 'customer details successfully retrieved.',
+    }
+    res.send(response)
+  })
+})
+
+//update customer details
+app.put('/updateCustomer', (req, res) => {
+  const cust_id = req.query.customerID
+  const cust_name = req.query.customerName
+  const email = req.query.email
+  const address = req.query.address
+  const contact = req.query.contact
+  
+  
+    
+  let query = `UPDATE CustomerDetails SET customerName='${cust_name}', email='${email}', address='${address}', contactNum='${contact}' WHERE customerID='${cust_id}'`
+    pool.query(query, (err, results, fields) => {
+      if (err) {
+        const response = { data: null, message: err.message, }
+        res.send(response)
+      }
+
+      const data = {
+        cust_id,
+        cust_name,
+        email,
+        address,
+        contact,
+      }
+      const response = {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Headers" : "Content-Type",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT"
+          //"Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+        },
+        data: data,
+        message: `customer ${cust_name} is successfully updated.`,
+      }
+      res.send(response)
+  })
+});
 
 module.exports.handler = serverless(app)
 

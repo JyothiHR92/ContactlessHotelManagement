@@ -25,6 +25,23 @@ const getMenu = () => {
         document.getElementById('hoteladdress').innerText = 'Hotel Address:  '+response.data.data[0].address;
         document.getElementById('hotelzipcode').innerText = 'Zipcode:  '+response.data.data[0].zipcode;
     })
+
+    let link = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getCustomerDetails?customer_id='+customer_id;
+    console.log(link)
+    axios.get(link)
+        .then(function (response) {
+        //resultElement.innerHTML = generateSuccessHTMLOutput(response);
+        console.log(response)
+        console.log('here in get of customer')
+        document.getElementById('cname').innerText = 'Name:  '+response.data.data[0].customerName
+        document.getElementById('email').innerText = 'Email:  '+response.data.data[0].email
+        document.getElementById('mail').innerText = 'Mailing Address:  '+response.data.data[0].address
+        document.getElementById('phno').innerText = 'Phone Number:  '+response.data.data[0].contactNum
+        document.getElementById('cust_name').value = response.data.data[0].customerName
+        document.getElementById('e_address').value = response.data.data[0].email
+        document.getElementById('m_address').value = response.data.data[0].address
+        document.getElementById('c_number').value =  response.data.data[0].contactNum
+    })
     
     document.getElementById('coll').style="display:block"
     
@@ -93,4 +110,73 @@ const cancelReservation = () => {
         });
 
     }
+};
+
+//Update Customer details
+const updateCustomer = () =>{
+    const customerID = sessionStorage.getItem('sub')
+    console.log(customerID)
+    const customerName = document.getElementById('cust_name').value
+    const email = document.getElementById('e_address').value
+    let address= document.getElementById('m_address').value
+    const contact = document.getElementById('c_number').value
+    console.log(customerName)
+    console.log(email)
+    console.log(address)
+    console.log(contact)
+    address = address.split(" ")
+    console.log('address =' + address)
+    address = address.join("+")
+    console.log(address)
+    let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/updateCustomer?customerID='+customerID+'&&customerName='+customerName+'&&email='+email+'&&address='+address+'&&contact='+contact
+    console.log(url)
+    axios.put(url)
+        .then(function (response) {
+        //resultElement.innerHTML = generateSuccessHTMLOutput(response);
+        console.log(response)
+        console.log('here in updating the customer details')
+        let link = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getCustomerDetails?customer_id='+customerID;
+        console.log(link)
+        if (response.data.data.length !=0 )
+        {   console.log('inside if')
+            axios.get(link)
+            .then(function(res) {
+                consile.log(res)
+                console.log('here in get of the customer details')
+                document.getElementById('cname').innerText = 'Name:  '+res.data.data[0].customerName
+                document.getElementById('email').innerText = 'Email:  '+res.data.data[0].email
+                document.getElementById('mail').innerText = 'Mailing Address:  '+res.data.data[0].address
+                document.getElementById('phno').innerText = 'Phone Number:  '+res.data.data[0].contactNum
+                console.log("customer data retrieved successfully")
+            })
+            .catch(function (error) {
+                console.log(JSON.stringify(error))
+            });
+        }
+        alert('Details saved successfully')
+        })
+        .catch(function (error) {
+            //resultElement.innerHTML = generateErrorHTMLOutput(error);
+            console.log(JSON.stringify(error))
+    });
+};
+
+//retreive customer details
+const retreiveCustomer = ()=>{
+    const customerID = sessionStorage.getItem('sub')
+    let link = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getCustomerDetails?customer_id='+customerID;
+    console.log(link)
+    axios.get(link)
+        .then(function (response) {
+        //resultElement.innerHTML = generateSuccessHTMLOutput(response);
+        console.log(response)
+        console.log('here in get of customer')
+        document.getElementById('cname').innerText = 'Name:  '+response.data.data[0].customerName
+        document.getElementById('email').innerText = 'Email:  '+response.data.data[0].email
+        document.getElementById('mail').innerText = 'Mailing Address:  '+response.data.data[0].address
+        document.getElementById('phno').innerText = 'Phone Number:  '+response.data.data[0].contactNum
+       
+    }).catch(function (error){
+        console.log(JSON.stringify(error))
+    });
 };
