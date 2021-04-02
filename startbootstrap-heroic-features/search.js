@@ -42,6 +42,11 @@ function search() {
         checkout = document.getElementById('datepickerto').value;
         checkin = document.getElementById('datepickerfrom').value;
         console.log(checkin)
+        address = response.data.data[i].address
+        console.log(address)
+        address = address.split(" ")
+        address = address.join("+")
+        console.log(address)
         cardtext += `<div class="col-lg-3 col-md-3 mb-4">
         <div class="card h-70">
         <div class="card-body">
@@ -49,6 +54,8 @@ function search() {
         <p class="card-text" id = "cardtext" > ${response.data.data[i].roomTypeName}</p>
         <p class="card-text" > checkin: ${checkin}</p>
         <p class="Card-text" > checkout: ${checkout}</p>
+        <p class="card-text" > Price:${response.data.data[i].roomRate}</p>
+        <p class="card-text" > Hotel Address:${response.data.data[i].address}</p>
         </div>
         <div class="card-footer">
         <form action = "./selectRoom.html">
@@ -59,6 +66,8 @@ function search() {
         <input type = "hidden" id = "cout" name = "cout" value = ${checkout}>
         <input type = "hidden" id = "hid" name = "hid" value = ${response.data.data[i].hotelId}>
         <input type = "hidden" id = "rtid" name = "rtid" value = ${response.data.data[i].roomTypeID}>
+        <input type = "hidden" id = "rate" name="rate" value = ${response.data.data[i].roomRate}>
+        <input type = "hidden" id = "addr" name="addr" value = ${address}>
         <button class="btn btn-primary" type = "submit" value = "submit"> Select </button>
         </form>
         </div>

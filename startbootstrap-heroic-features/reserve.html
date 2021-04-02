@@ -52,11 +52,15 @@
                 <p class="card-text" id = "rtn-ame" >Room Type : </p>
                 <p class="card-text" id ="c_in">Check_in:</p>
                 <p class="card-text" id ="c_out">Check_out:</p>
+                <p class="card-text" id="price"></p>
+                <p class="card-text" id="add"></p>
                 <script type = "text/javascript">
                  let hotel_name = sessionStorage.getItem('hotel_name');
                 let room_type = sessionStorage.getItem('room_type');
                 let checkin = sessionStorage.getItem('checkin');
                 let checkout = sessionStorage.getItem('checkout');
+                let price = sessionStorage.getItem('roomRate')
+                let addr = sessionStorage.getItem('address')
                 console.log(hotel_name)
                 console.log(room_type)
 
@@ -64,7 +68,8 @@
                 document.getElementById('rtn-ame').innerText = 'Room_Type: ' + room_type;
                 document.getElementById('c_in').innerText = 'Check_In: ' + checkin
                 document.getElementById('c_out').innerText= 'Check_Out: ' + checkout
-                
+                document.getElementById('price').innerText = 'Price Per Day:  ' + price
+                document.getElementById('add').innerText = 'Hotel Address:  ' + addr
                 </script>
             </div>
         </div>

@@ -21,7 +21,7 @@ app.get('/searchHotel', (req, res) => {
     const guests = req.query.guests
     const location = req.query.location
     console.log('outside')
-    let query = `select r.roomID, r.roomTypeID ,rt.roomTypeName, rt.hotelId, h.hotelName from Rooms r join RoomType rt inner join Hotel h where r.roomTypeID = rt.roomTypeID  
+    let query = `select r.roomID, r.roomTypeID ,rt.roomTypeName, rt.hotelId, h.hotelName, rt.roomRate, h.address from Rooms r join RoomType rt inner join Hotel h where r.roomTypeID = rt.roomTypeID  
     and rt.hotelID = h.hotelID and h.location = \'${location}\'
     and rt.maxOccupancy > \'${guests}\' and  r.roomID 
     not in (select r1.roomID from Rooms r1 join Reservations r2 where r1.roomID = r2.roomID 

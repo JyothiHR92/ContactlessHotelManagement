@@ -231,3 +231,13 @@ const retreiveCustomer = ()=>{
         console.log(JSON.stringify(error))
     });
 };
+
+//signout implementation
+const signOut = () =>{
+    console.log("sign out");
+    const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser) cognitoUser.signOut();
+    sessionStorage.clear();
+    location.href = "landing_page.html"
+};

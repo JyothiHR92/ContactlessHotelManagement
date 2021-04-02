@@ -117,6 +117,8 @@
                 <p class="card-text" id = "rtname" >Room Type : </p>
                 <p class="card-text" id ="cin"> </p>
                 <p class="card-text" id ="cout"></p>
+                <p class="card-text" id = "price"></p>
+                <p class="card-text" id="ad"></p>
                 <script type = "text/javascript">
                     var l = window.location.href;
                     l_split = l.split('/')
@@ -131,6 +133,11 @@
                     c_out = amp_split[4].split('=')[1]
                     hotel_id = amp_split[5].split('=')[1]
                     roomtype_id = amp_split[6].split('=')[1]
+                    roomRate = amp_split[7].split('=')[1]
+                    address = amp_split[8].split('=')[1]
+                    address = address.split("%2B")
+                    address = address.join(" ")
+                    console.log(address)
                     sessionStorage.setItem('hotel_name', hotel_name)
                     sessionStorage.setItem('room_type', room_type)
                     sessionStorage.setItem('room_id', room_id)
@@ -138,12 +145,16 @@
                     sessionStorage.setItem('checkout', c_out)
                     sessionStorage.setItem('hotel_id', hotel_id)
                     sessionStorage.setItem('roomtype_id', roomtype_id)
+                    sessionStorage.setItem('roomRate',roomRate)
+                    sessionStorage.setItem('address',address)
                     console.log(hotel_name + room_type)
                     console.log(sessionStorage)
                     document.getElementById('hname').innerText = 'Hotel Name: '+ hotel_name
                     document.getElementById('rtname').innerText = 'Room Type: '+ room_type
                     document.getElementById('cin').innerText = 'Check-In: ' + c_in
                     document.getElementById('cout').innerText = 'check-Out: '+ c_out
+                    document.getElementById('price').innerText = 'Price Per Day: '+ roomRate
+                    document.getElementById('ad').innerText = 'Hotel Address: ' + address
                 </script>
             </div>
                 <!--<div class="card-footer">
