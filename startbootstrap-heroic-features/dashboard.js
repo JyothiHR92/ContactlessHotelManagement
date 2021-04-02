@@ -20,7 +20,29 @@ function myFunction() {
     })
 };
 
-
+//onclick of close for the checkin it has to check for the isCheckedIn and enable yourstay and bot button
+const enableServices = () =>{
+    console.log('close function')
+    customer_id = sessionStorage.getItem('sub')
+    console.log('customer id' + customer_id)
+    let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getReservation?customer_id='+customer_id;
+    console.log(url)
+    axios.get(url)
+        .then(function (response) {
+        //resultElement.innerHTML = generateSuccessHTMLOutput(response);
+        console.log(response)
+        console.log('here in get of reservation')
+       if(response.data.data[0].isCheckedIn == 1){
+            document.getElementById('yourstay').style="display:block"
+            document.getElementById('bot').style="display:block"
+            alert('You can avail the services offered ny the hotel')
+        }
+        else
+        {
+            alert('you have to check-in to avail the services')
+        }
+    })
+};
 
 //get the menu option for user dashboard
 const getMenu = () => {
