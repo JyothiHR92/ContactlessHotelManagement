@@ -1,3 +1,27 @@
+//onload check for the isheckedIn to enable amenities and bot
+
+document.getElementById("yourstay").addEventListener("load", myFunction);
+
+function myFunction() {
+    console.log('myfuntion')
+    customer_id = sessionStorage.getItem('sub')
+    console.log('customer id' + customer_id)
+    let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getReservation?customer_id='+customer_id;
+    console.log(url)
+    axios.get(url)
+        .then(function (response) {
+        //resultElement.innerHTML = generateSuccessHTMLOutput(response);
+        console.log(response)
+        console.log('here in get of reservation')
+       if(response.data.data[0].isCheckedIn == 1){
+            document.getElementById('yourstay').style="display:block"
+            document.getElementById('bot').style="display:block"
+        }
+    })
+};
+
+
+
 //get the menu option for user dashboard
 const getMenu = () => {
     customer_id = sessionStorage.getItem('sub')
@@ -17,6 +41,11 @@ const getMenu = () => {
         sessionStorage.setItem('checkin',checkin[0])
         sessionStorage.setItem('checkout',checkout[0])
         sessionStorage.setItem('res_id', response.data.data[0].reservationID)
+
+        /*if(response.data.data[0].isCheckedIn == 1){
+            document.getElementById('yourstay').style="display:block"
+            document.getElementById('bot').style="display:block"
+        }*/
         
         document.getElementById('checkin').innerText = 'Check-In Date:  ' + checkin[0];
         document.getElementById('checkout').innerText = 'check-out Date:  ' + checkout[0];

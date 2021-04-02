@@ -32,6 +32,7 @@ function getUserAttributes(){
             
               console.log('cust_name' + cname)
               let cid = sessionStorage.getItem('sub')
+              sessionStorage.setItem('username',cname)
               let address = street.split(" ")
               console.log('address =' + address)
               let addr = address.join("+")
@@ -129,6 +130,8 @@ const signInUser = () => {
     onSuccess: function () {
       console.log("login success");
       console.log(cognitoUser)
+      console.log(userData.Username)
+      sessionStorage.setItem('username',userData.Username)
       getCurrentUserForDisplay();
       
     },

@@ -130,11 +130,11 @@ app.get('/getReservation', (req, res) => {
   const cust_id = req.query.customer_id
   
   console.log('inside get reservation')
-  let query = `select r.checkInDate, r.checkOutDate, r.reservationID, rm.roomNum,rt.roomTypeName, h.hotelName,h.address,h.location,h.zipcode from Reservations r
+  let query = `select r.checkInDate, r.checkOutDate, r.reservationID, rm.roomNum,rt.roomTypeName, h.hotelName,h.address,h.location,h.zipcode,r.isCheckedIn from Reservations r
   inner join Rooms rm inner join RoomType rt inner join Hotel h
    where r.roomID = rm.roomID and rm.roomTypeID = rt.roomTypeID
    and r.hotelID = h.hotelID
-   and r.customerID = \'${cust_id}\'`;
+   and r.customerID = \'${cust_id}\' and r.isCheckedOut = false`;
   console.log(query)
   pool.query(query, (err, results, fields) => {
     if (err) {
