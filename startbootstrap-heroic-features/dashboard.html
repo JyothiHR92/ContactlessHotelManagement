@@ -53,7 +53,21 @@
 
 
 </style>-->
-
+<style type="text/css">
+  .jumbotron{
+          background-image: url("https://landingimage.s3.amazonaws.com/banner1.jpeg");
+          background-repeat: no-repeat, repeat;
+          background-position: center; /* Center the image */
+          background-size: cover; /* Resize the background image to cover the entire container */
+          padding-top: 50px;
+          font-weight: bold;
+          margin-top: 100px;
+          margin-bottom: 100px;
+          padding: 100px;
+          /*border-radius: 50px;
+          /*box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);*/
+        }
+</style>
 </head>
 
 <body onload="myFunction()">
@@ -115,7 +129,7 @@ function myFunction() {
 
     <!-- Jumbotron Header -->
     <header class="jumbotron my-4">
-      <h1 class="display-3">User Dashboard!</h1>
+      <h1 class="display-3"></h1>
       <!--<p class="lead"></p>-->
       <!--<a href="#" class="btn btn-primary btn-lg">Call to action!</a>-->
     </header>
@@ -176,7 +190,7 @@ function myFunction() {
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                   <div class="card-body">
                       <p>Click on the checkin button to scan the confirmation number at the kiosk 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" onclick="checkIn()" data-target="#myModal">
                           CheckIn
                         </button>
                         <button type = "button" class="btn btn-primary" onclick= "enableServices()">Enable Services</button>
@@ -193,9 +207,9 @@ function myFunction() {
         
                               <!-- Modal body -->
                               <div class="modal-body" >
-                                <h4 class = "text-center align-middle"id="modalbody" style="height: 350px;"></h4>
+                                <h4 class = "text-center align-middle"id="modalb" style="height: 350px;"></h4>
                                 <script type = "text/javascript">
-                                  document.getElementById('modalbody').innerText = sessionStorage.getItem('res_id');
+                                  document.getElementById('modalb').innerText = sessionStorage.getItem('res_id');
                                 </script>
                               </div>
         

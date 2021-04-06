@@ -20,6 +20,9 @@ function myFunction() {
     })
 };
 
+const checkIn = () =>{
+    document.getElementById('modalb').innerText = sessionStorage.getItem('res_id')
+};
 //onclick of close for the checkin it has to check for the isCheckedIn and enable yourstay and bot button
 const enableServices = () =>{
     console.log('close function')

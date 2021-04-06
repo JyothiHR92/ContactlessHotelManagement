@@ -20,13 +20,28 @@
         integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
         crossorigin="anonymous" />
 </head>
+<style type="text/css">
+  .jumbotron{
+          background-image: url("https://landingimage.s3.amazonaws.com/banner1.jpeg");
+          background-repeat: no-repeat, repeat;
+          background-position: center; /* Center the image */
+          background-size: cover; /* Resize the background image to cover the entire container */
+          padding-top: 50px;
+          font-weight: bold;
+          margin-top: 100px;
+          margin-bottom: 100px;
+          padding: 100px;
+          /*border-radius: 50px;
+          /*box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);*/
+        }
+</style>
 
 <body>
 
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #ff9800;">
     <div class="container">
-      <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <a class="navbar-brand text-dark display-10" href="#">EZEE HOTELS</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -48,12 +63,12 @@
           </li> -->
           <!--<form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
-            <div class = "datepickerfrom mt-sm-2 mr-auto" >
-              <!--<label for="datepickerfrom text-white">Check_in</label>-->
+            <div class = "datepickerfrom mt-sm-2 mr-sm-2" >
+              <label for="datepickerfrom text-white">Check_in</label>
               <input id="datepickerfrom" name="datepickerfrom" width="250" type="date" required>
             </div>
             <div class = "datepickerto mt-sm-2 mr-sm-2 mr-auto" >
-              <!--<label for="datepickerto">Check_out</label>-->
+              <label for="datepickerto">Check_out</label>
               <input id="datepickerto" name="datepickerto" width="250" type="date" required>
             </div>
             <!--<div class="btn-group">
@@ -93,7 +108,7 @@
                   <option>2</option>
               </select>
             </div>
-            <button class="btn btn-primary l-sm-3 mt-sm-2 mb-sm-3"  onclick="search()" type="submit">Search</button>
+            <button class="btn btn-primary ml-sm-3 mt-sm-2 mb-sm-3"  onclick="search()" type="submit">Search</button>
           <!--</form>-->
         </ul>
       </div>
@@ -104,7 +119,7 @@
 <div class="container">
     <!-- Jumbotron Header -->
     <header class="jumbotron my-4">
-      <h1 class="display-3">User Dashboard!</h1>
+      <h1 class="display-3"></h1>
       <!--<p class="lead"></p>-->
       <!--<a href="#" class="btn btn-primary btn-lg">Call to action!</a>-->
     </header>
@@ -182,7 +197,7 @@
         </div>
         <button type="submit mb-10" class="btn btn-primary" id = "submit1" aria-describedby="content"onclick="signUp()" >Register</button>
         <button type="submit mb-10" class="btn btn-primary" id = "login_opt" onclick="loginopt()" aria-describedby="login_opt">Login</button>
-        <small id="submit1" class="form-text text-muted">Confirmation code will be sent to your email-id.</small>
+        <small id="submit1" class="form-text text-muted">If you are a registered user please click login otherwise register.Confirmation code will be sent to your email-id.</small>
     </form>
     <!--form for confirmation-->
     <form class="signup-container" id = "signupconfirm" style = "display: none;">
@@ -228,7 +243,7 @@
         <input type="email" class="form-control" id="email" placeholder="Enter email">
         </div>
         <div class="form-group">
-        <label for="street">address</label>
+        <label for="street">Mailing address</label>
         <input type = "text" class="form-control" id = "street" placeholder="Enter address">
         </div>
         <div class="form-group">
