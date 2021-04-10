@@ -88,9 +88,13 @@ function getCurrentUser() {
             let customer_id = sessionStorage.getItem('sub')
             let checkin = sessionStorage.getItem('checkin')
             let checkout = sessionStorage.getItem('checkout')
+            let price = sessionStorage.getItem('roomRate')
+            //var stripe = Stripe(stripekey.STRIPE_PUB_KEY);
+            //let h_id = localStorage.setItem('hotel_id',sessionStorage.getItem('hotel_id'))
+            //let r_id = localStorage.setItem('room_id',sessionStorage.getItem('room_id'))
             let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/book?hotelID='+hotel_id+'&&roomID='+room_id+'&&customerID='+customer_id+'&&checkInDate='+checkin+'&&checkOutDate='+checkout;
-            console.log(url)
-            axios.post(url)
+              console.log(url)
+              axios.post(url)
                 .then(function (response) {
                   //resultElement.innerHTML = generateSuccessHTMLOutput(response);
                   console.log(response)
@@ -99,7 +103,11 @@ function getCurrentUser() {
                   location.href = "dashboard.html"
                   alert('Booked room successfully')
                 })
+              .catch((error) => {
+            console.error('Error:', error);
           });
+            
+        });
       });
   }
 }

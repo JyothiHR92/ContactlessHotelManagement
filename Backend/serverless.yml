@@ -11,6 +11,7 @@ provider:
 functions:
   searchFunc:
     handler: index.handler
+    timeout: 30
     events:
       - http:
           path: searchHotel
@@ -38,6 +39,18 @@ functions:
           cors: true
       - http:
           path: updateCustomer
+          method: put
+          cors: true
+      - http:
+          path: Postbook
+          method: post
+          cors: true
+      - http:
+          path: getCountRows
+          method: get
+          cors: true
+      - http:
+          path: updateCheckout
           method: put
           cors: true
 plugins:

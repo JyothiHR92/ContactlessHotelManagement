@@ -176,8 +176,42 @@ function myFunction() {
                     <p class="card-text" id="roomnumber">Room Number:</p>
                     <p class="card-text" id="hoteladdress">Hotel Address:</p>
                     <p class="card-text" id="hotelzipcode">Hotel Zipcode:</p>
-                    <button class="btn btn-primary" type="submit" id="cancelres" onclick="cancelReservation()">Cancel Reservation</button>
+                    <button class="btn btn-primary mr-sm-2" type="submit" id="cancelres" onclick="cancelReservation()">Cancel Reservation</button>
+                    <button type="button" class="btn btn-primary my-2 mr-sm-0" data-toggle="modal" data-target="#myExtendModal">
+                      Extend Checkout
+                    </button>
                     </p>
+                    <div class="modal" id="myExtendModal">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+
+                          <div class="modal-header">
+                            <h4 class="modal-title">Extend Your Stay</h4>
+                            <button type="button"  class="close" data-dismiss="modal">&times;</button>
+                          </div>
+
+                          <div class="modal-body" >
+                            <div class="card-body">
+                              <form class="form" role="form" autocomplete="off">
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label datepickerto form-control-label">ChecOut-Date</label>
+                                    <div class="col-lg-9">
+                                      <input class="form-control" id="datepickerto"  type="date" required>
+                                    </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+
+                          <!-- Modal footer -->
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" onclick="updateCheckOut()">Extend</button>
+                                <button type="button" class="btn btn-primary" onclick="retreiveReservation()"data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </p>
                   </div>
               </div>
           </div>

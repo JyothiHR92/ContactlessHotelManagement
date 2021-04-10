@@ -66,7 +66,8 @@ const getMenu = () => {
         sessionStorage.setItem('checkin',checkin[0])
         sessionStorage.setItem('checkout',checkout[0])
         sessionStorage.setItem('res_id', response.data.data[0].reservationID)
-
+        sessionStorage.setItem('room_id', response.data.data[0].roomID)
+        
         /*if(response.data.data[0].isCheckedIn == 1){
             document.getElementById('yourstay').style="display:block"
             document.getElementById('bot').style="display:block"
@@ -233,6 +234,72 @@ const retreiveCustomer = ()=>{
     }).catch(function (error){
         console.log(JSON.stringify(error))
     });
+};
+
+//Extend customer stay
+const updateCheckOut = () =>{
+    extended_checkout = document.getElementById('datepickerto').value
+    console.log(extended_checkout)
+    reservationID = sessionStorage.getItem('res_id')
+    current_startdate = sessionStorage.getItem('checkin')
+    roomID = sessionStorage.getItem('room_id')
+    let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getCountRows?reservationID='+reservationID+'&&roomID='+roomID+'&&extended_checkout='+extended_checkout+'&&current_startdate='+current_startdate
+    console.log('url')
+    axios.get(url)
+    .then(function (response) {
+    //resultElement.innerHTML = generateSuccessHTMLOutput(response);
+    console.log(response)
+    console.log('here in get of getCountRows')
+    //call update checkout api
+    if (response.data.data[0].rcount == 0){
+        let link = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/updateCheckout?reservationID='+reservationID+'&&extended_checkout='+extended_checkout
+        console.log(link)
+        axios.put(link)
+        .then(function (response) {
+            console.log(response)
+            console.log('updated checkout successfully')
+            alert('Extetended Your Stay Successfully')
+        })
+    }
+    else{
+            alert('Sorry, room is not available. Kindly book another room')
+        }
+    })
+    .catch(function (error){
+    console.log(JSON.stringify(error))
+    });
+};
+
+//get updated checkout from reservation table 
+const retreiveReservation = () =>{
+    console.log('inside retreive reservation')
+    customer_id = sessionStorage.getItem('sub')
+    console.log('customer id' + customer_id)
+    let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getReservation?customer_id='+customer_id;
+    console.log(url)
+    axios.get(url)
+        .then(function (response) {
+        //resultElement.innerHTML = generateSuccessHTMLOutput(response);
+        console.log(response)
+        console.log('here in get of reservation')
+        checkin = response.data.data[0].checkInDate
+        checkin = checkin.split('T')
+        checkout = response.data.data[0].checkOutDate
+        checkout = checkout.split('T')
+        sessionStorage.setItem('checkout',checkout[0])
+
+        document.getElementById('checkin').innerText = 'Check-In Date:  ' + checkin[0];
+        document.getElementById('checkout').innerText = 'check-out Date:  ' + checkout[0];
+        document.getElementById('hotelname').innerText = 'Hotel Name:  ' + response.data.data[0].hotelName;
+        document.getElementById('roomnumber').innerText = 'Room Number:  '+ response.data.data[0].roomNum;
+        document.getElementById('hoteladdress').innerText = 'Hotel Address:  '+response.data.data[0].address;
+        document.getElementById('hotelzipcode').innerText = 'Zipcode:  '+response.data.data[0].zipcode;
+
+       
+    }).catch(function (error){
+        console.log(JSON.stringify(error))
+    });
+    
 };
 
 //signout implementation
