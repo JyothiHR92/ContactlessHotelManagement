@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Book Table at the Restaurant</title>
+    <title>Room Service Confirmation</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -25,7 +25,37 @@
         })
       };
     </script>  
- 
+
+<script>
+  $( document ).ready(function() {
+    var total = 0;
+    for (var i = 0; i < localStorage.length; i++)
+      {
+        var div = document.createElement('div');
+        div.setAttribute('class', 'mb-3 row');
+        var label1 = document.createElement('label');
+        label1.setAttribute('class', 'col-sm-4 col-form-label');
+        label1.setAttribute('id','lbl'+i);
+        label1.textContent = localStorage.key(i);
+        var label2 = document.createElement('label');
+        label2.setAttribute('class', 'col-form-label');
+        label2.setAttribute('id','lblPr'+i);
+        label2.textContent = '$'+localStorage.getItem(localStorage.key(i)).split(" ")[0]+'.00';
+        var input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("id", 'lblQt'+i);
+        input.value = localStorage.getItem(localStorage.key(i)).split(" ")[1];
+        var parentDiv = document.querySelector('#dvParent');
+        parentDiv.appendChild(div);
+        parentDiv.appendChild(label1); 
+        parentDiv.appendChild(label2);
+        parentDiv.appendChild(input);
+        total = total + parseInt(localStorage.getItem(localStorage.key(i)));  
+      }
+      document.getElementById('lblTotalBill').textContent = '$'+total+'.00';
+      localStorage.clear();
+});
+</script>
 
     <!-- Navigation -->
   <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #ff9800;">
@@ -69,51 +99,34 @@
 <!-- Amenities -->
 
 <div class="review">
+  
  <div class="container">
-   
+  <h5 id="hName">Hotel Name</h5>
    <div class="card text-left border-dark mb-3">
-
-    <h5 id="hName">Hotel Name</h5>
-      <h4 class="card-header">BOOK A TABLE</h4>
+      <h4 class="card-header">ROOM SERVICE CONFIRMATION</h4>
       <div class="card-body">
+        
         <div class="card">
-        <div class="card-body">
-          <div class="form-group row">
-            <label for="lblDate" class="col-2 col-form-label">Select Date:</label>
-            <div class="col-4">
-              <input class="form-control" type="date" id="inpDate">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="lblTime" class="col-2 col-form-label">Select a Time Slot</label>
-            <div class="col-4">
-              <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inpTime" onclick="onChangeSelect();">
-                <option selected>Select</option>
-                <option value="9">7:00 AM - 9:00 AM</option>
-                <option value="11">9:00 AM - 11:00 AM</option>
-                <option value="13">11:00 AM - 1:00 PM</option>
-                <option value="15">1:00 PM - 3:00 PM</option>
-                <option value="17">3:00 PM - 5:00 PM</option>
-                <option value="19">5:00 PM - 7:00 PM</option>
-                <option value="21">7:00 PM - 9:00 PM</option>
-              </select>
-              </div>
-            </div>
-          <div class="form-group row">
-            <label for="lblGuests" class="col-2 col-form-label">Number of Guests</label>
-            <div class="col-4">
-              <input class="form-control" type="number" value="1" id="inpGuests">
-            </div>
-          </div>
-      </div>
+        <h5 class="card-header">TOTAL BILL</h5>
+        <div  id="dvParent" class="card-body">
+        </div>
         </div>
         
-        
+        <h6 style="color:red;font-style:italic;"><sup>*</sup>Taxes will be applied to your order at checkout.</h6>
         <br>
         <div class="text-center">
-              <button type="submit" class="btn btn-primary mb-3" onclick="submitRestaurantBooking()">Reserve</button>
+              <label class="col-form-label" style="font-size:35px;">Total:</label>
+              <label id="lblTotalBill" class="col-form-label" style="font-size:35px;">
+              </label>
+              <input type="hidden" id="serviceType" value="Room Service">
+              
             </div>
-          </div>
+            <br>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary mb-3" onclick="insertRoomService()">Confirm</button>
+              <button type="submit" class="btn btn-primary mb-3" onclick="location.href='myOngoingTrip.html';">Cancel</button>
+            </div>
+            
       </div>
     </div>
  
@@ -146,7 +159,7 @@
     <!-- /.container -->
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="amenities.js"></script>
+  <script src="roomService.js"></script>
   <script src="amazon-cognito-identity.min.js"></script>
   <script src="config.js"></script>
   <script src="dashboard.js"></script>

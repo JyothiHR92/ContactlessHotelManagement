@@ -174,3 +174,9 @@
           var finalTime = hours + ":00" + " " + AmOrPm; 
           return finalTime;
         }
+//onclick of userDahboard page
+const getDashboard = () =>
+{
+  event.preventDefault();
+  location.href = "dashboard.html"
+}

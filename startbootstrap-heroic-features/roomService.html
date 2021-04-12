@@ -1,0 +1,413 @@
+  <html>
+  <head>
+    <title>Room Service Menu</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+    <style type="text/css">
+      .qty {
+        width: 40px;
+        height: 35px;
+        text-align: center;
+      }
+      input.qtyplus { width:25px; height:35px;}
+      input.qtyminus { width:25px; height:35px;}
+    </style>
+  </head>
+
+  <body onload="myFunction()">
+    <!--scripts-->
+    <script>
+      function myFunction() {
+        console.log('myfuntion')
+        customer_id = sessionStorage.getItem('sub')
+        let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getReservation?customer_id='+customer_id;
+        console.log(url)
+        axios.get(url)
+        .then(function (response) {
+          if(response.data.data[0].isCheckedIn == 1){
+            document.getElementById('yourstay').style="display:block"
+            document.getElementById('bot').style="display:block"
+          }
+        })
+      };
+    </script>  
+   
+    <script>
+      jQuery(document).ready(function(){
+    // This button will increment the value
+    $('.qtyplus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If is not undefined
+        if (currentVal == 10) {
+            $('input[name='+fieldName+']').val(currentVal);
+        }
+        else if (!isNaN(currentVal) ) {
+            // Increment
+            $('input[name='+fieldName+']').val(currentVal + 1);
+        } 
+        else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+    // This button will decrement the value till 0
+    $(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input[name='+fieldName+']').val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+});
+    </script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #ff9800;">
+      <div class="container">
+        <span class="navbar-text">
+          <h1>EZEE HOTELS</h1>
+        </span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class = "nav-item">
+              <p class= "text-dark my-2 mr-sm-2" id="getuser" ></p>
+              <script type="text/javascript">
+                document.getElementById('getuser').innerText= 'Hello, ' + sessionStorage.getItem('username');
+              </script>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-primary my-2 mr-sm-2" onclick="getDashboard()"type="submit" >Dashboard</button>
+            </li>
+            <li class="nav-item" id = "yourstay" style = "display:none">
+              <button class="btn btn-primary my-2 mr-sm-2" type="submit" onclick="location.href='myOngoingTrip.html';">Your Stay
+              </button>
+            </li>
+            <li class="nav-item"id="bot" style = "display:none">
+              <button class="btn btn-primary my-2 mr-sm-2" type="submit" onClick="window.open('https://us-east-1.sumerian.aws/22b1eecf89ae41139fbc2329af18c018.scene'); return false">Bot</button>
+            </li>  
+            <li class="nav-item">
+              <button class="btn btn-primary my-2 mr-sm-0" onclick="signOut()" type="submit">Logout</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <br>
+    <br>
+    <br>
+    <br> 
+    <!-- Amenities -->
+
+    <div class="roomService">
+
+     <div class="container">
+      <h5 id="hName">Hotel Name</h5>
+      <div class="card text-left border-dark mb-3">
+        <h4 class="card-header">ROOM SERVICE MENU</h4>
+        <div class="card-body">
+         
+          <div class="card">
+            <h5 class="card-header">APPETIZERS</h5>
+            <div class="card-body">
+              <div class="row">
+   
+   <div class="col-lg-3 col-md-3 mb-2">
+    <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+      <div class="card-title">
+        <label id="lblApp1" class="col-form-label">Garlic Knots</label>
+        &nbsp;&nbsp;
+        <label id="lblAppPr1" class="col-form-label">$10.00</label>
+      </div>
+      <div class="card-img">
+      <img src="Images/Knots.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+      </div>
+      <div class="card-footer">
+        <input type="button" value="-" class="qtyminus" field="qtyApp1" />
+        <input type="text" name="qtyApp1" id="qtyApp1" value="0" class="qty" />
+        <input type="button" value="+" class="qtyplus" field="qtyApp1" />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" value="Add" class="btn btn-primary" style="height:35px;" onclick="addApp1()"/>  
+      </div>
+    </div>
+   </div>
+
+   <div class="col-lg-3 col-md-3 mb-2">
+    <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+      <div class="card-title">
+         <label id="lblApp2" class="col-form-label">Buffalo Wings</label>
+         &nbsp;&nbsp;
+         <label id="lblAppPr2" class="col-form-label">$12.00</label>
+      </div>
+      <div class="card-img">
+      <img src="Images/buffalowings.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+      </div>
+      <div class="card-footer">
+        <input type='button' value='-' class='qtyminus' field='qtyApp2' />
+        <input type='text' name='qtyApp2' id = 'qtyApp2' value='0' class='qty' />
+        <input type='button' value='+' class='qtyplus' field='qtyApp2'/>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="submit" class="btn btn-primary" onclick="addApp2()">Add</button>
+      </div>
+    </div>
+   </div>
+
+   <div class="col-lg-3 col-md-3 mb-2">
+    <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+      <div class="card-title">
+         <label id="lblApp3" class="col-form-label">Bruschetta</label>
+        &nbsp;&nbsp;
+         <label id="lblAppPr3" class="col-form-label">$8.00</label>
+      </div>
+      <div class="card-img">
+      <img src="Images/bruschetta.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+      </div>
+      <div class="card-footer">
+        <input type='button' value='-' class='qtyminus' field='qtyApp3' />
+        <input type='text' name='qtyApp3' id ='qtyApp3' value='0' class='qty' />
+        <input type='button' value='+' class='qtyplus' field='qtyApp3' />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="submit" class="btn btn-primary" onclick="addApp3()">Add</button>
+      </div>
+    </div>
+   </div>
+
+   <div class="col-lg-3 col-md-3 mb-2">
+    <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+      <div class="card-title">
+         <label id="lblApp4" class="col-form-label">Onion Rings</label>
+         &nbsp;&nbsp;
+         <label id="lblAppPr4" class="col-form-label">$5.00</label>
+      </div>
+      <div class="card-img">
+      <img src="Images/onionrings.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+      </div>
+      <div class="card-footer">
+        <input type='button' value='-' class='qtyminus' field='qtyApp4' />
+        <input type='text' name='qtyApp4' id='qtyApp4' value='0' class='qty' />
+        <input type='button' value='+' class='qtyplus' field='qtyApp4' />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="submit" class="btn btn-primary" onclick="addApp4()">Add</button>
+      </div>
+    </div>
+   </div>
+
+   <div class="col-lg-3 col-md-3 mb-2">
+    <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+      <div class="card-title">
+         <label id="lblApp5" class="col-form-label">French Fries </label>
+         &nbsp;&nbsp;
+         <label id="lblAppPr5" class="col-form-label">$7.00</label>
+      </div>
+      <div class="card-img">
+      <img src="Images/frenchfries.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+      </div>
+      <div class="card-footer">
+        <input type='button' value='-' class='qtyminus' field='qtyApp5' />
+        <input type='text' name='qtyApp5' id='qtyApp5' value='0' class='qty' />
+        <input type='button' value='+' class='qtyplus' field='qtyApp5' />
+        &nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="submit" class="btn btn-primary" onclick="addApp5()">Add</button>
+      </div>
+    </div>
+   </div>
+
+            </div>
+          </div>
+          <div class="card">
+            <h5 class="card-header">ENTREE</h5>
+            <div class="card-body">
+              <div class="row">
+              <div class="col-lg-3 col-md-3 mb-2">
+                  <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card-title">
+                       <label id="lblEnt1" class="col-form-label">Lobster Ravioli</label>
+                       &nbsp;&nbsp;
+                       <label id="lblEntPr1" class="col-form-label">$25.00</label>
+                    </div>
+                    <div class="card-img">
+                    <img src="Images/lobsterravioli.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+                    </div>
+                    <div class="card-footer">
+                      <input type='button' value='-' class='qtyminus' field='qtyEnt1' />
+                      <input type='text' name='qtyEnt1' id='qtyEnt1' value='0' class='qty' />
+                      <input type='button' value='+' class='qtyplus' field='qtyEnt1' />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" onclick="addEnt1()">Add</button>
+                    </div>
+                  </div>
+                 </div>   
+
+                 <div class="col-lg-3 col-md-3 mb-2">
+                  <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card-title">
+                       <label id="lblEnt2" class="col-form-label">Penne Arrabiata</label>
+                       &nbsp;&nbsp;
+                       <label id="lblEntPr2" class="col-form-label">$20.00</label>
+                    </div>
+                    <div class="card-img">
+                    <img src="Images/PenneArrabbiata.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+                    </div>
+                    <div class="card-footer">
+                      <input type='button' value='-' class='qtyminus' field='qtyEnt2' />
+                      <input type='text' name='qtyEnt2' id='qtyEnt2' value='0' class='qty' />
+                      <input type='button' value='+' class='qtyplus' field='qtyEnt2' />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" onclick="addEnt2()">Add</button>
+                    </div>
+                  </div>
+                 </div>     
+
+                 <div class="col-lg-3 col-md-3 mb-2">
+                  <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card-title">
+                       <label id="lblEnt3" class="col-form-label">Smoked Chicken</label>
+                       &nbsp;&nbsp;
+                       <label id="lblEntPr3" class="col-form-label">$20.00</label>
+                    </div>
+                    <div class="card-img">
+                    <img src="Images/smokechicken.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+                    </div>
+                    <div class="card-footer">
+                      <input type='button' value='-' class='qtyminus' field='qtyEnt3' />
+                      <input type='text' name='qtyEnt3' id='qtyEnt3' value='0' class='qty' />
+                      <input type='button' value='+' class='qtyplus' field='qtyEnt3' />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" onclick="addEnt3()">Add</button>
+                    </div>
+                  </div>
+                 </div>   
+
+                 <div class="col-lg-3 col-md-3 mb-2">
+                  <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card-title">
+                       <label id="lblEnt4" class="col-form-label">Eggplant Parmesan</label>
+                       &nbsp;&nbsp;
+                       <label id="lblEntPr4" class="col-form-label">$18.00</label>
+                    </div>
+                    <div class="card-img">
+                    <img src="Images/EggplantParmesan.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+                    </div>
+                    <div class="card-footer">
+                      <input type='button' value='-' class='qtyminus' field='qtyEnt4' />
+                      <input type='text' name='qtyEnt4' id='qtyEnt4' value='0' class='qty' />
+                      <input type='button' value='+' class='qtyplus' field='qtyEnt4' />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" onclick="addEnt4()">Add</button>
+                    </div>
+                  </div>
+                 </div>  
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h5 class="card-header">DESSERTS</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-3 col-md-3 mb-2">
+                  <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card-title">
+                       <label id="lblDes1" class="col-form-label">Cream Brulee</label>
+                       &nbsp;&nbsp;
+                       <label id="lblDesPr1" class="col-form-label">$15.00</label>
+                    </div>
+                    <div class="card-img">
+                    <img src="Images/cremebrulee.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+                    </div>
+                    <div class="card-footer">
+                      <input type='button' value='-' class='qtyminus' field='qtyDes1' />
+                      <input type='text' name='qtyDes1' id='qtyDes1' value='0' class='qty' />
+                      <input type='button' value='+' class='qtyplus' field='qtyDes1' />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" onclick="addDes1()">Add</button>
+                    </div>
+                  </div>
+                 </div> 
+
+                 <div class="col-lg-3 col-md-3 mb-2">
+                  <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card-title">
+                       <label id="lblDes2" class="col-form-label">Chocolate Mousee</label>
+                       &nbsp;&nbsp;
+                       <label id="lblDesPr2" class="col-form-label">$10.00</label>
+                    </div>
+                    <div class="card-img">
+                    <img src="Images/chocolatemousse.jpg" class="img-fluid" style="width: 10rem; height: 10rem;">
+                    </div>
+                    <div class="card-footer">
+                      <input type='button' value='-' class='qtyminus' field='qtyDes2' />
+                      <input type='text' name='qtyDes2' id='qtyDes2' value='0' class='qty' />
+                      <input type='button' value='+' class='qtyplus' field='qtyDes2' />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" onclick="addDes2()">Add</button>
+                    </div>
+                  </div>
+                 </div> 
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary mb-3" onclick="submitRoomService()">Place Order</button>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header alert-secondary">
+        <h4 class="modal-title" id="myModalTitle">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times; </button>
+      </div>
+      <div class="modal-body" id="myModalBody">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+  <!-- Footer -->
+  <footer class="py-5" style="background-color: #ff9800;">
+    <div class="container">
+      <p class="m-0 text-center text-white" >Copyright &copy; Your Website 2021</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="roomService.js"></script>
+  <script src="amazon-cognito-identity.min.js"></script>
+  <script src="config.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+
+</body>
+</html>

@@ -760,3 +760,8 @@
 
             return hoursInt + ":" + minutes + ":00";
         }        
+//redirect to dashboard.html page
+const getDashboard = () =>{
+    event.preventDefault();
+    location.href = "dashboard.html"
+};
