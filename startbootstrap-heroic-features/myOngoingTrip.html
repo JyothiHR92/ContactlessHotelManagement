@@ -1,0 +1,412 @@
+html>
+  <head>
+    <title>Customer Dashboard</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+  integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+  crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  </head>
+  <style>
+        table 
+        {
+            width: 100%;
+            border-collapse: collapse;
+            border:solid black 1px;
+            border-radius:6px;
+            -moz-border-radius:6px;
+        }
+        th, td 
+        {
+            padding: 10px 5px;
+            text-align: center;
+            background-color: #F2F2F2;
+            border:solid black 1px;
+        }
+        .my-custom-scrollbar 
+        {
+        position: relative;
+        height: 200px;
+        overflow: auto;
+        }
+        .table-wrapper-scroll-y 
+        {
+        display: block;
+        }
+        .rating {
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: center
+        }
+
+        .rating>input {
+          display: none
+        }
+
+        .rating>label {
+          position: relative;
+          width: 1em;
+          font-size: 4vw;
+          color: #FFD600;
+          cursor: pointer
+        }
+
+        .rating>label::before {
+          content: "\2605";
+          position: absolute;
+          opacity: 0
+        }
+
+        .rating>label:hover:before,
+        .rating>label:hover~label:before {
+          opacity: 1 !important
+        }
+
+        .rating>input:checked~label:before {
+          opacity: 1
+        }
+
+        .rating:hover>input:checked~label:before {
+          opacity: 0.4
+        }
+  </style>
+  
+  <body onload="myFunction()">
+    <script>
+      function myFunction() {
+        console.log('myfuntion')
+        customer_id = sessionStorage.getItem('sub')
+        let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getReservation?customer_id='+customer_id;
+        console.log(url)
+        axios.get(url)
+        .then(function (response) {
+          if(response.data.data[0].isCheckedIn == 1){
+            document.getElementById('yourstay').style="display:block"
+            document.getElementById('bot').style="display:block"
+          }
+        })
+      };
+    </script>  
+    <script>
+      $(document).ready(function(){
+        if(localStorage.getItem('activeTab') != "") {
+          $('a[href="' + localStorage.getItem('activeTab') + '"]').click();
+          localStorage.clear();
+        }
+      });
+    </script>
+
+    <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #ff9800;">
+    <div class="container">
+      <span class="navbar-text">
+      <h1>EZEE HOTELS</h1>
+      </span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class = "nav-item">
+                <p class= "text-dark my-2 mr-sm-2" id="getuser" ></p>
+                <script type="text/javascript">
+                document.getElementById('getuser').innerText= 'Hello, ' + sessionStorage.getItem('username');
+                </script>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-primary my-2 mr-sm-2" onclick="getMenu()"type="submit" >User Dashboard</button>
+              </li>
+              <li class="nav-item" id = "yourstay" style = "display:none">
+                <button class="btn btn-primary my-2 mr-sm-2" type="submit" onclick="location.href='myOngoingTrip.html';">Your Stay
+                </button>
+              </li>
+              <li class="nav-item"id="bot" style = "display:none">
+                <button class="btn btn-primary my-2 mr-sm-2" type="submit" >Bot</button>
+              </li>  
+              <li class="nav-item">
+                <button class="btn btn-primary my-2 mr-sm-0" onclick="signOut()" type="submit">Logout</button>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <br>
+  <br>
+  <br>
+  <br> 
+
+<div class="review">
+  
+ <div class="container">
+  <br>
+  <h5 id="hName">Hotel Name</h5>
+   <div class="card text-left border-dark mb-3">
+
+      <h4 class="card-header">MY ONGOING TRIP</h4>
+      <div class="card-body">
+        <nav>
+          <div class="nav nav-pills" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-amenities-tab" data-toggle="pill" href="#nav-amenities" role="tab" aria-controls="nav-amenities" aria-selected="true">Amenities and Concierge Services</a>
+            <a class="nav-item nav-link" id="nav-mybill-tab" data-toggle="pill" href="#nav-mybill" role="tab" aria-controls="nav-mybill" aria-selected="false">My Bill</a>
+            <a class="nav-item nav-link" id="nav-checkout-tab" data-toggle="pill" href="#nav-checkout" role="tab" aria-controls="nav-checkout" aria-selected="false">Checkout</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="pill" href="#nav-review" role="tab" 
+            aria-controls="nav-review" aria-selected="false">Post Review</a>
+          </div>
+        </nav>
+
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-amenities" role="tabpanel" aria-labelledby="nav-amenities-tab">
+            <div class="card border-secondary">
+              <div class="card-body">
+                <h4 class="text-left">MY BOOKINGS</h4>
+                <div id="dvTable" class="table-wrapper-scroll-y my-custom-scrollbar table-responsive-md">
+                </div>
+                <div id="dvRecords">
+                </div>
+              </div>
+
+              <hr style="height:2px;border-width:0;color:gray;background-color:gray">
+              <div class="card-body">
+                <h4 class="text-left">AMENITIES & CONCIERGE SERVICES</h4>
+                <div id="dvParent" class="row">
+                  <div class="col-md-3 col-lg-3 col-sm-8">
+                    <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+                      <h5 class="card-header">Room Service</h5>
+                      <div class="card-img">
+                        <img src="Images/room-service.png" class="img-fluid" style="width: 8rem; height: 8rem;">
+                      </div>
+                      <div class="card-footer">
+                        <a href="roomService.html" class="btn btn-primary">Book</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-lg-3 col-sm-8">
+                    <div class="card text-center border-secondary mb-3" style="max-width: 18rem;">
+                      <h5 class="card-header">House Keeping</h5>
+                      <div class="card-img">
+                        <img src="Images/maid.png" class="img-fluid" style="width: 8rem; height: 8rem;">
+                      </div>
+                      <div class="card-footer">
+                        <a href="houseKeeping.html" class="btn btn-primary">Book</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-pane fade" id="nav-mybill" role="tabpanel" aria-labelledby="nav-mybill-tab">
+            <div class="card border-secondary">
+            <div class="card-body">
+              <h5>MY BILL</h5>
+              <div class = table-responsive-md>
+                <table class="table-striped">
+                  <thead style="font-weight:bold" >
+
+                  </thead>
+                  <tbody id = "output_bill" >
+                    
+                  </tbody>
+                  <tfoot id ="total_bill"  style="font-weight:bold">
+                    
+                  </tfoot>
+                </table>
+                <label id = "message" style="color:gray"></label>
+              </div>
+                  <script>
+                      var sum=0;
+                      var customer = "8a1096ee-db5f-42a3-b530-f0bb636b561d";
+                      console.log(customer);
+                      //https://ugh4ejsjge.execute-api.us-east-1.amazonaws.com/latest
+                      let url = 'https://ugh4ejsjge.execute-api.us-east-1.amazonaws.com/latest/mybill?customerID='+customer;
+                      fetch(url).then(
+                      res=> {
+                        res.json().then(
+                          result=>{
+                          console.log(result.data);
+                          if(result.data.length > 0) {
+                            var temp="";
+                            temp += "<tr>";
+                            temp +="<th>ItemType</th>";
+                            temp += "<th>Price($)</th>";
+                            temp +="</tr>";
+                            result.data.forEach((u)=> {
+                              temp += "<tr>";
+
+                              if(u.bookingType == 'Room Service ') {
+                              
+                              // temp += "<td>"+u+"</td>";
+                              temp += "<td>"+"Food"+"</td>";
+                              temp += "<td>"+u.totalAmt+"</td></tr>";
+                              }
+                              else {
+                              temp +="<td>"+"Room Charges"+"</td>";
+                              temp += "<td>"+u.totalAmt+"</td></tr>";
+                              }
+                              sum += u.totalAmt;
+                              console.log(total);
+                            })
+                            document.getElementById("output_bill").innerHTML=temp;
+                            document.getElementById("total_bill").innerHTML='<tr><td>Total:</td><td id="sum">'+sum+'</td></tr>';
+                          }
+                          else {
+                            document.getElementById("message").innerHTML='You dont have any outstanding charges at the moment';
+                          }
+                        })
+                      })
+                  </script>
+                </div>
+              </div>
+        </div>
+
+          <div class="tab-pane fade" id="nav-checkout" role="tabpanel" aria-labelledby="nav-checkout-tab">
+            <div class="card border-secondary">
+            <div class="card-body">
+              <h5>CART</h5>
+              <div>
+                <label> <mark>Would you like to leave us a rating and feedback? Click on <mark style="color:#ff9800">Post Review</mark> tab above.</mark></label>
+                <br>
+              </div>
+              <div class = table-responsive-md>
+                <table class="table-striped">
+                  <thead style="font-weight:bold" >
+                    
+                  </thead>
+                  <tbody id = "output" >
+                    
+                  </tbody>
+                  <tfoot id ="total"  style="font-weight:bold">
+                    
+                  </tfoot>
+                </table>
+                <button type = "submit" id = "Checkout" onclick="book()" aria-describedby="bk" class="btn btn-primary">Pay & Checkout</button>
+                <label id="tax_msg" style="color:gray"><i><small>*Sales tax will be applied at checkout</small></i></label>
+                <label id = "message1" style="color:gray"></label>
+              </div>
+
+              <script>
+                var sum1=0;
+                var customer = "8a1096ee-db5f-42a3-b530-f0bb636b561d";
+                console.log(customer);
+                //https://ugh4ejsjge.execute-api.us-east-1.amazonaws.com/latest
+                let url1 = 'https://ugh4ejsjge.execute-api.us-east-1.amazonaws.com/latest/mybill?customerID='+customer;
+                fetch(url1).then(
+                res=> {
+                  res.json().then(
+                    result=>{
+                    console.log(result.data.length);
+                    if(result.data.length > 0) {
+                      var temp="";
+                        temp += "<tr>";
+                        temp +="<th>ItemType</th>";
+                        temp += "<th>Price($)</th>";
+                        temp +="</tr>";
+                      result.data.forEach((u)=> {
+                        temp += "<tr>";
+                        
+                        if(u.bookingType == 'Room Service ') {
+                        
+                        // temp += "<td>"+u+"</td>";
+                        temp += "<td>"+"Food"+"</td>";
+                        temp += "<td>"+u.totalAmt+"</td></tr>";
+                        }
+                        else {
+                        temp +="<td>"+"Room Charges"+"</td>";
+                        temp += "<td>"+u.totalAmt+"</td></tr>";
+                        }
+                        sum1 += u.totalAmt;
+                        console.log(sum1);
+                      })
+                      
+                        document.getElementById("output").innerHTML=temp;
+                        document.getElementById("total").innerHTML='<tr><td>Total:</td><td id="sum">'+sum1+'</td></tr>'; 
+                        document.getElementById("Checkout").style.display="block";
+                        document.getElementById("tax_msg").style.display="block"; 
+
+                    }
+                    else {
+                        document.getElementById("message1").innerHTML='You dont have any outstanding charges at the moment';
+                        document.getElementById("Checkout").style.display="none";
+                        document.getElementById("tax_msg").style.display="none";
+                    }
+                  })
+                })
+            </script>
+          </div>
+        </div>
+        </div>
+
+          <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
+            <div class="review">
+             <div class="container">
+              <div class="card text-left border-dark mb-3">
+                <h4 class="card-header">POST YOUR REVIEW</h4>
+                <div class="card-body">
+                  <br>
+                  <div class="mb-3">
+                    <textarea class="form-control" id="txtReview" rows="4" required></textarea>
+                  </div>
+                  <div class="rating"> 
+                    <input type="checkbox" name="rating" id="rating5"><label for="rating5">☆</label> 
+                    <input type="checkbox" name="rating" id="rating4"><label for="rating4">☆</label> 
+                    <input type="checkbox" name="rating" id="rating3"><label for="rating3">☆</label> 
+                    <input type="checkbox" name="rating" id="rating2"><label for="rating2">☆</label> 
+                    <input type="checkbox" name="rating" id="rating1"><label for="rating1">☆</label>
+                  </div>
+                  <div class="row justify-content-center">
+                    <button class="btn btn-primary mb-3"  onclick="submitReviewRatings()" type="submit">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+ </div>
+</div>
+</div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header alert-secondary">
+        <h4 class="modal-title" id="myModalTitle">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times; </button>
+      </div>
+      <div class="modal-body" id="myModalBody">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<!-- Footer -->
+  <footer class="py-5" style="background-color: #ff9800;">
+    <div class="container">
+      <p class="m-0 text-center text-white" >Copyright &copy; Your Website 2021</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="myBookings.js"></script>
+  <script src="myAmenities.js"></script>
+  <script type='text/javascript' src='stripeKey.js'></script>
+  <script src="payment_checkout.js"></script>
+  <script src="postReview.js"></script>
+  <script src="amazon-cognito-identity.min.js"></script>
+  <script src="config.js"></script>
+  <script src="dashboard.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  </body>
+</html>

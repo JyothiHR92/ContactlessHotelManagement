@@ -1,0 +1,155 @@
+<html>
+  <head>
+    <title>GYM</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+  </head>
+
+  <body onload="myFunction()">
+    <script>
+      function myFunction() {
+        console.log('myfuntion')
+        customer_id = sessionStorage.getItem('sub')
+        let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getReservation?customer_id='+customer_id;
+        console.log(url)
+        axios.get(url)
+        .then(function (response) {
+          if(response.data.data[0].isCheckedIn == 1){
+            document.getElementById('yourstay').style="display:block"
+            document.getElementById('bot').style="display:block"
+          }
+        })
+      };
+    </script>  
+
+    <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #ff9800;">
+    <div class="container">
+      <span class="navbar-text">
+      <h1>EZEE HOTELS</h1>
+      </span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class = "nav-item">
+                <p class= "text-dark my-2 mr-sm-2" id="getuser" ></p>
+                <script type="text/javascript">
+                document.getElementById('getuser').innerText= 'Hello, ' + sessionStorage.getItem('username');
+                </script>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-primary my-2 mr-sm-2" onclick="getMenu()"type="submit" >User Dashboard</button>
+              </li>
+              <li class="nav-item" id = "yourstay" style = "display:none">
+                <button class="btn btn-primary my-2 mr-sm-2" type="submit" onclick="location.href='myOngoingTrip.html';">Your Stay
+                </button>
+              </li>
+              <li class="nav-item"id="bot" style = "display:none">
+                <button class="btn btn-primary my-2 mr-sm-2" type="submit" >Bot</button>
+              </li>  
+              <li class="nav-item">
+                <button class="btn btn-primary my-2 mr-sm-0" onclick="signOut()" type="submit">Logout</button>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <br>
+  <br>
+  <br>
+  <br> 
+<!-- Amenities -->
+
+<div class="review">
+  
+ <div class="container">
+  <h5 id="hName">Hotel Name</h5>
+   <div class="card text-left border-dark mb-3">
+      <h4 class="card-header">BOOK A SLOT AT THE GYM</h4>
+      <div class="card-body">
+        <div class="card">
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="lblDate" class="col-2 col-form-label">Select Date:</label>
+            <div class="col-6">
+              <input class="form-control" type="date" id="inpDate" >
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lblTime" class="col-2 col-form-label">Select a Time Slot:</label>
+            <div class="col-6">
+              <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inpTime" onclick="onChangeSelect();" >
+                <option selected>Select</option>
+                <option value="7">6:00 AM - 7:00 AM</option>
+                <option value="8">7:00 AM - 8:00 AM</option>
+                <option value="9">8:00 AM - 9:00 AM</option>
+                <option value="10">9:00 AM - 10:00 AM</option>
+                <option value="11">10:00 AM - 11:00 AM</option>
+                <option value="12">11:00 AM - 12:00 PM</option>
+                <option value="13">12:00 PM - 1:00 PM</option>
+                <option value="14">1:00 PM - 2:00 PM</option>
+                <option value="15">2:00 PM - 3:00 PM</option>
+                <option value="16">3:00 PM - 4:00 PM</option>
+                <option value="17">4:00 PM - 5:00 PM</option>
+                <option value="18">5:00 PM - 6:00 PM</option>
+                <option value="19">6:00 PM - 7:00 PM</option>
+                <option value="20">7:00 PM - 8:00 PM</option>
+              </select>
+              </div>
+            </div>
+          <div class="form-group row">
+            <label for="lblGuests" class="col-2 col-form-label">Number of Guests:</label>
+            <div class="col-6">
+              <input class="form-control" type="number" value="1" id="inpGuests">
+            </div>
+          </div>
+        </div>
+        </div>
+        
+        
+        <br>
+        <div class="text-center">
+              <button type="submit" class="btn btn-primary mb-3" onclick="submitGymBooking()">Reserve</button>
+            </div>
+      </div>
+    </div>
+ 
+    
+ </div>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalTitle" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header alert-secondary">
+        <h4 class="modal-title" id="myModalTitle">Modal title</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times; </button>
+      </div>
+      <div class="modal-body" id="myModalBody">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<!-- Footer -->
+  <footer class="py-5" style="background-color: #ff9800;">
+    <div class="container">
+      <p class="m-0 text-center text-white" >Copyright &copy; Your Website 2021</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="amenities.js"></script>
+  </body>
+</html>
