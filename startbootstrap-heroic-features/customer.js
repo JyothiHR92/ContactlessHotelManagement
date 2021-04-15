@@ -1,3 +1,8 @@
+//sleep
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 
 //Save user details to customer database
 const saveReservation = () => {
@@ -46,7 +51,9 @@ function getUserAttributes(){
                   console.log('here')
                   console.log(window.location.href)
                   location.href = "reserve.html"
-                  alert('Data saved successfully')
+                  document.getElementById('exampleModalLongTitle').innerHTML = 'Customer Details'
+                  document.getElementById('modalbody').innerHTML = 'Details Saved Successfully'
+                  //alert('Data saved successfully')
                 })
               .catch(function (error) {
                 console.log(error)
@@ -57,6 +64,12 @@ function getUserAttributes(){
         }
 
 }
+//Close of the pop up for dave reservation
+const redirectDasboard= () => {
+  console.log("in close")
+  //event.preventDefault();
+  location.href = "dashboard.html"
+};
 
 
 //Book and payment
@@ -100,8 +113,12 @@ function getCurrentUser() {
                   console.log(response)
                   console.log('here in post of reservation')
                   console.log(window.location.href)
-                  location.href = "dashboard.html"
-                  alert('Booked room successfully')
+                  //document.getElementById('exampleModalLongTitle').innerHTML = ' Booking'
+                  document.getElementById('modalbody').innerHTML = 'Booked room Successfully'
+                  sleep(3000).then(() => {window.location.href = 'dashboard.html';});
+                  //location.href = "dashboard.html"
+                  //alert('Booked room successfully')
+                 
                 })
               .catch((error) => {
             console.error('Error:', error);

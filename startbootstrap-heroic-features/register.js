@@ -44,6 +44,26 @@ const confirmCode = () => {
       }
     });
 };
+
+//resend code
+const resendCode = () => {
+  event.preventDefault();
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  const username = document.getElementById('UserName').value;
+  console.log(username)
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser({
+    Username: username,
+    Pool: userPool,
+  });
+  
+  cognitoUser.resendConfirmationCode(function (err){
+    if (err) {
+      alert(err);
+    }
+    
+    console.log("resent code")
+  });
+};
 //cognito Login
 const signIn = () => {
   event.preventDefault();

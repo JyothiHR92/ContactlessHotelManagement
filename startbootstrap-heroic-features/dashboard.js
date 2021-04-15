@@ -13,9 +13,18 @@ function myFunction() {
         //resultElement.innerHTML = generateSuccessHTMLOutput(response);
         console.log(response)
         console.log('here in get of reservation')
-       if(response.data.data[0].isCheckedIn == 1){
+       if(response.data.data[0].isCheckedIn == 1 && response.data.data[0].isCheckedOut == 0){
+            document.getElementById('cancelres').style="display:none"
+            document.getElementById('checkinbutton').style="display:none"
+            document.getElementById('servicebutton').style="display:none"
             document.getElementById('yourstay').style="display:block"
             document.getElementById('bot').style="display:block"
+        }
+        else{
+            document.getElementById('cancelres').style="display:block"
+            document.getElementById('yourstay').style="display:none"
+            document.getElementById('bot').style="display:none"
+        
         }
     })
 };
@@ -35,14 +44,19 @@ const enableServices = () =>{
         //resultElement.innerHTML = generateSuccessHTMLOutput(response);
         console.log(response)
         console.log('here in get of reservation')
-       if(response.data.data[0].isCheckedIn == 1){
+       if(response.data.data[0].isCheckedIn == 1 && response.data.data[0].isCheckedOut == 0){
             document.getElementById('yourstay').style="display:block"
             document.getElementById('bot').style="display:block"
-            alert('You can avail the services offered ny the hotel')
+            //alert('You can avail the services offered ny the hotel')
+            document.getElementById('alertsuccess').style="display:block;"
+            document.getElementById('alertsuccess').innerText = 'You can avail the services offered by the hotel'
         }
         else
         {
-            alert('you have to check-in to avail the services')
+            console.log("enable services failure")
+            //alert('you have to check-in to avail the services')
+            document.getElementById('alertfailure').style="display:block;"
+            document.getElementById('alertfailure').innerText = 'You have to checkin to avail the services offered by the hotel.'
         }
     })
 };
@@ -58,6 +72,8 @@ const getMenu = () => {
         //resultElement.innerHTML = generateSuccessHTMLOutput(response);
         console.log(response)
         console.log('here in get of reservation')
+        if(response.data.data.length != 0 )
+        {
         checkin = response.data.data[0].checkInDate
         checkin = checkin.split('T')
         checkout = response.data.data[0].checkOutDate
@@ -73,12 +89,22 @@ const getMenu = () => {
             document.getElementById('bot').style="display:block"
         }*/
         
-        document.getElementById('checkin').innerText = 'Check-In Date:  ' + checkin[0];
-        document.getElementById('checkout').innerText = 'check-out Date:  ' + checkout[0];
+        document.getElementById('checkin').innerText = 'Checkin Date:  ' + checkin[0];
+        document.getElementById('checkout').innerText = 'checkout Date:  ' + checkout[0];
         document.getElementById('hotelname').innerText = 'Hotel Name:  ' + response.data.data[0].hotelName;
         document.getElementById('roomnumber').innerText = 'Room Number:  '+ response.data.data[0].roomNum;
         document.getElementById('hoteladdress').innerText = 'Hotel Address:  '+response.data.data[0].address;
         document.getElementById('hotelzipcode').innerText = 'Zipcode:  '+response.data.data[0].zipcode;
+        } 
+        else{
+            document.getElementById('viewreservation').style="display:none";
+            document.getElementById('cancelres').style="display:none";
+            document.getElementById('checkinbutton').style = "display:none";
+            document.getElementById('servicebutton').style="display:none";
+            document.getElementById('extendcheckout').style="display:none"
+            document.getElementById('viewblankrecords').style="display:block";
+            document.getElementById('displaymessage').innerText='No reservations found.'
+        }  
     })
 
     let link = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getCustomerDetails?customer_id='+customer_id;
@@ -130,7 +156,7 @@ const cancelReservation = () => {
     console.log(hours)
     if(hours > 24)
     {
-        alert('Your amount will be refunded within 7 days')
+        //alert('Your amount will be refunded within 7 days')
         const res_id = sessionStorage.getItem('res_id')
         let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/cancelReservation?reservationID='+res_id;
         console.log(url)
@@ -139,7 +165,8 @@ const cancelReservation = () => {
         //resultElement.innerHTML = generateSuccessHTMLOutput(response);
         console.log(response)
         console.log('here in cancel reservation of more than 24 hrs')
-        alert('Your booking cancelled successfully')
+        //alert('Your booking cancelled successfully')
+        document.getElementById('modalbody').innerHTML = 'Cancelled Room Successfully!!'
         })
         .catch(function (error) {
             //resultElement.innerHTML = generateErrorHTMLOutput(error);
@@ -148,7 +175,7 @@ const cancelReservation = () => {
     
     }
     else{
-        alert('10 percent will be deducted from the total payed amount')
+        //alert('10 percent will be deducted from the total payed amount')
         const res_id = sessionStorage.getItem('res_id')
         let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/cancelReservation?reservationID='+res_id;
         console.log(url)
@@ -157,7 +184,8 @@ const cancelReservation = () => {
         //resultElement.innerHTML = generateSuccessHTMLOutput(response);
         console.log(response)
         console.log('here in cancel reservation less than 24 hrs')
-        alert('Your booking cancelled successfully')
+        //alert('Your booking cancelled successfully')
+        document.getElementById('modalbody').innerHTML = 'Cancelled Room Successfully!!'
         })
         .catch(function (error) {
             //resultElement.innerHTML = generateErrorHTMLOutput(error);
@@ -165,6 +193,41 @@ const cancelReservation = () => {
         });
 
     }
+    customer_id = sessionStorage.getItem('sub')
+    console.log('customer id' + customer_id)
+    let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getReservation?customer_id='+customer_id;
+    console.log(url)
+    axios.get(url)
+        .then(function (response) {
+            console.log(response)
+        if(response.data.data.length != 0)
+        {
+        console.log('here in get of reservation')
+        checkin = response.data.data[0].checkInDate
+        checkin = checkin.split('T')
+        checkout = response.data.data[0].checkOutDate
+        checkout = checkout.split('T')
+
+        sessionStorage.setItem('checkin',checkin[0])
+        sessionStorage.setItem('checkout',checkout[0])
+        sessionStorage.setItem('res_id', response.data.data[0].reservationID)
+        sessionStorage.setItem('room_id', response.data.data[0].roomID)
+        
+        document.getElementById('checkin').innerText = 'Checkin:  ' + checkin[0];
+        document.getElementById('checkout').innerText = 'checkout:  ' + checkout[0];
+        document.getElementById('hotelname').innerText = 'Hotel Name:  ' + response.data.data[0].hotelName;
+        document.getElementById('roomnumber').innerText = 'Room Number:  '+ response.data.data[0].roomNum;
+        document.getElementById('hoteladdress').innerText = 'Hotel Address:  '+response.data.data[0].address;
+        document.getElementById('hotelzipcode').innerText = 'Zipcode:  '+response.data.data[0].zipcode;
+        }
+        else{
+            document.getElementById('viewreservation').style="display:none";
+            document.getElementById('cancelres').style="display:none";
+            document.getElementById('extendcheckout').style="display:none"
+            document.getElementById('viewblankrecords').style="display:block";
+            document.getElementById('displaymessage').innerText='No reservations found.'
+        }
+        })
 };
 
 //Update Customer details
@@ -208,7 +271,9 @@ const updateCustomer = () =>{
                 console.log(JSON.stringify(error))
             });
         }
-        alert('Details saved successfully')
+        //alert('Details saved successfully')
+        document.getElementById('alertupdate').style="display:block";
+        document.getElementById('alertupdate').innerText='Updated details successfully!!'
         })
         .catch(function (error) {
             //resultElement.innerHTML = generateErrorHTMLOutput(error);
@@ -258,11 +323,15 @@ const updateCheckOut = () =>{
         .then(function (response) {
             console.log(response)
             console.log('updated checkout successfully')
-            alert('Extetended Your Stay Successfully')
+            //alert('Extetended Your Stay Successfully')
+            document.getElementById('alert').style="display:block";
+            document.getElementById('alert').innerText = "Extended your checkout date successfully."
         })
     }
     else{
-            alert('Sorry, room is not available. Kindly book another room')
+            //alert('Sorry, room is not available. Kindly book another room')
+            document.getElementById('alert').style="display:block";
+            document.getElementById('alert').innerText = "Sorry, room is not available. Kindly book another room."
         }
     })
     .catch(function (error){
@@ -282,19 +351,28 @@ const retreiveReservation = () =>{
         //resultElement.innerHTML = generateSuccessHTMLOutput(response);
         console.log(response)
         console.log('here in get of reservation')
+        if (response.data.data.length != 0)
+        {
         checkin = response.data.data[0].checkInDate
         checkin = checkin.split('T')
         checkout = response.data.data[0].checkOutDate
         checkout = checkout.split('T')
         sessionStorage.setItem('checkout',checkout[0])
 
-        document.getElementById('checkin').innerText = 'Check-In Date:  ' + checkin[0];
-        document.getElementById('checkout').innerText = 'check-out Date:  ' + checkout[0];
+        document.getElementById('checkin').innerText = 'Checkin:  ' + checkin[0];
+        document.getElementById('checkout').innerText = 'checkout:  ' + checkout[0];
         document.getElementById('hotelname').innerText = 'Hotel Name:  ' + response.data.data[0].hotelName;
         document.getElementById('roomnumber').innerText = 'Room Number:  '+ response.data.data[0].roomNum;
         document.getElementById('hoteladdress').innerText = 'Hotel Address:  '+response.data.data[0].address;
         document.getElementById('hotelzipcode').innerText = 'Zipcode:  '+response.data.data[0].zipcode;
-
+        }
+        else{
+            document.getElementById('viewreservation').style="display:none";
+            document.getElementById('cancelres').style="display:none";
+            document.getElementById('extendcheckout').style="display:none"
+            document.getElementById('viewblankrecords').style="display:block";
+            document.getElementById('displaymessage').innerText='No reservations found.'
+        }
        
     }).catch(function (error){
         console.log(JSON.stringify(error))

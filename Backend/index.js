@@ -26,7 +26,7 @@ app.get('/searchHotel', (req, res) => {
     console.log('outside')
     let query = `select r.roomID, r.roomTypeID ,rt.roomTypeName, rt.hotelId, h.hotelName, rt.roomRate, h.address from Rooms r join RoomType rt inner join Hotel h where r.roomTypeID = rt.roomTypeID  
     and rt.hotelID = h.hotelID and h.location = \'${location}\'
-    and rt.maxOccupancy > \'${guests}\' and  r.roomID 
+    and rt.maxOccupancy >= \'${guests}\' and  r.roomID 
     not in (select r1.roomID from Rooms r1 join Reservations r2 where r1.roomID = r2.roomID 
     and  ((r2.checkInDate >= \'${checkin}\' and r2.checkInDate <= \'${checkout}\' ) 
     or (r2.checkOutDate <= \'${checkout}\' and r2.checkOutDate >= \'${checkin}\') 
@@ -222,11 +222,11 @@ app.get('/getReservation', (req, res) => {
   const cust_id = req.query.customer_id
   
   console.log('inside get reservation')
-  let query = `select r.checkInDate, r.checkOutDate, r.reservationID,r.roomID, rm.roomNum,rt.roomTypeName, h.hotelName,h.address,h.location,h.zipcode,r.isCheckedIn from Reservations r
+  let query = `select r.checkInDate, r.checkOutDate, r.reservationID,r.roomID, rm.roomNum,rt.roomTypeName, h.hotelName,h.address,h.location,h.zipcode,r.isCheckedIn,r.isCheckedOut from Reservations r
   inner join Rooms rm inner join RoomType rt inner join Hotel h
    where r.roomID = rm.roomID and rm.roomTypeID = rt.roomTypeID
    and r.hotelID = h.hotelID
-   and r.customerID = \'${cust_id}\' and r.isCheckedOut = false`;
+   and r.customerID = \'${cust_id}\' and r.isCheckedOut = false  ORDER BY r.checkInDate ASC`;
   console.log(query)
   pool.query(query, (err, results, fields) => {
     if (err) {

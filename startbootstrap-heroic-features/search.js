@@ -48,12 +48,12 @@ function search() {
         address = address.join("+")
         console.log(address)
         cardtext += `<div class="col-lg-3 col-md-3 mb-4">
-        <div class="card h-70">
+        <div class="card h-70 shadow p-3 mb-5 bg-white rounded">
         <div class="card-body">
         <h4 class="card-title" id = "cardtitle" >${response.data.data[i].hotelName} </h4>
         <p class="card-text" id = "cardtext" > ${response.data.data[i].roomTypeName}</p>
-        <p class="card-text" > checkin: ${checkin}</p>
-        <p class="Card-text" > checkout: ${checkout}</p>
+        <p class="card-text" > Checkin: ${checkin}</p>
+        <p class="Card-text" > Checkout: ${checkout}</p>
         <p class="card-text" > Price:${response.data.data[i].roomRate}</p>
         <p class="card-text" > Hotel Address:${response.data.data[i].address}</p>
         </div>

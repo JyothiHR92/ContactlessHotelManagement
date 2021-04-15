@@ -40,7 +40,9 @@
     <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark  fixed-top "style="background-color:  #ff9800;">
     <div class="container">
-      <a class="navbar-brand text-dark" href="#">EZEE HOTELS</a>
+      <a class="navbar-brand text-dark" href="#">
+        <h4>EZEE HOTELS</h4>
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -65,8 +67,8 @@
             <div class="card-body">
                 <h4 class="card-title" id = "hotel_name" >Hotel Name: </h4>
                 <p class="card-text" id = "rtn-ame" >Room Type : </p>
-                <p class="card-text" id ="c_in">Check_in:</p>
-                <p class="card-text" id ="c_out">Check_out:</p>
+                <p class="card-text" id ="c_in">Checkin:</p>
+                <p class="card-text" id ="c_out">Checkout:</p>
                 <p class="card-text" id="price"></p>
                 <p class="card-text" id="add"></p>
                 <script type = "text/javascript">
@@ -88,18 +90,39 @@
                 </script>
             </div>
         </div>
-        <button type="submit mb-10" class="btn btn-primary" id = "bk" onclick="book()" aria-describedby="bk">Book&Pay</button>
-        <small id="bk" class="form-text text-muted">Redirected to payment gateway</small>
+        <button type="submit mb-10" class="btn btn-primary" id = "bk" onclick="book()" aria-describedby="bk"data-toggle="modal" data-target="#exampleModalCenter">Book</button>
+        <!--<small id="bk" class="form-text text-muted">Redirected to payment gateway</small>-->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <!--<h5 class="modal-title" id="exampleModalLongTitle"></h5>-->
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>-->
+              </div>
+              <div class="modal-body">
+                <h4 id = "modalbody"></h4>
+                <!--<button type="button" class="btn btn-primary" data-dismiss="modal"  >Close</button>-->
+              </div>
+              <!--<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" type = "submit" >Close</button>
+              </div>-->
+            </div>
+          </div>
+        </div>
     <!-- /.row -->
 
 
   </div>
   <!-- /.container -->
+  
+        
 
   <!-- Footer -->
   <footer class="py-5 i  mb-0" id = "footer"style="background-color:  #ff9800;">
     <div class="container mb-0">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p>
+      <p class="m-0 text-center text-white">Copyright &copy; ezeehotel.com</p>
     </div>
     <!-- /.container -->
   </footer>
