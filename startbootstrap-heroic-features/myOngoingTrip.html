@@ -10,7 +10,7 @@ html>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+    <script src="https://js.stripe.com/v3"></script>
   </head>
   <style>
         table 
@@ -102,9 +102,9 @@ html>
     </script>
 
     <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #ff9800;">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #ff9800;">
     <div class="container">
-      <span class="navbar-text">
+      <span class="navbar-brand text-dark">
       <h1>EZEE HOTELS</h1>
       </span>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -222,7 +222,7 @@ html>
               </div>
                   <script>
                       var sum=0;
-                      var customer = "8a1096ee-db5f-42a3-b530-f0bb636b561d";
+                      var customer = sessionStorage.getItem('sub');
                       console.log(customer);
                       //https://ugh4ejsjge.execute-api.us-east-1.amazonaws.com/latest
                       let url = 'https://ugh4ejsjge.execute-api.us-east-1.amazonaws.com/latest/mybill?customerID='+customer;
@@ -293,7 +293,7 @@ html>
 
               <script>
                 var sum1=0;
-                var customer = "8a1096ee-db5f-42a3-b530-f0bb636b561d";
+                var customer = sessionStorage.getItem('sub');
                 console.log(customer);
                 //https://ugh4ejsjge.execute-api.us-east-1.amazonaws.com/latest
                 let url1 = 'https://ugh4ejsjge.execute-api.us-east-1.amazonaws.com/latest/mybill?customerID='+customer;

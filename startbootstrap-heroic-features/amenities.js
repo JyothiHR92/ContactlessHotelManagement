@@ -9,7 +9,7 @@
        .then(function (response) {
         //resultElement.innerHTML = generateSuccessHTMLOutput(response);
         var hoteName = response.data[0][0].toUpperCase();
-
+        sessionStorage.setItem('checkOutDate', response.data[0][1]);
         document.getElementById('hName').textContent = hoteName;    
 
        })
@@ -23,6 +23,8 @@
             timeVal = localStorage.getItem("timeSlotVal");
             var inpTime = convertTimeFrom12To24(timeVal).split(':')[0];
             document.getElementById('inpTime').value = inpTime;
+            $('#inpDate').attr('min', localStorage.getItem("bookingDate")); 
+            $('#inpDate').attr('max', sessionStorage.getItem('checkOutDate')); 
        }
        else
        {
@@ -31,9 +33,11 @@
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
         var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        var future = sessionStorage.getItem('checkOutDate');
 
         $('#inpDate').val(today);
         $('#inpDate').attr('min', today); 
+        $('#inpDate').attr('max', future); 
        }
 
         });

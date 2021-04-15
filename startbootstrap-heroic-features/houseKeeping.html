@@ -9,11 +9,26 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </head>
 
-  <body>
+  <body onload="myFunction()">
+    <script>
+      function myFunction() {
+        console.log('myfuntion')
+        customer_id = sessionStorage.getItem('sub')
+        let url = 'https://r1mse841y7.execute-api.us-east-1.amazonaws.com/dev/getReservation?customer_id='+customer_id;
+        console.log(url)
+        axios.get(url)
+        .then(function (response) {
+          if(response.data.data[0].isCheckedIn == 1){
+            document.getElementById('yourstay').style="display:block"
+            document.getElementById('bot').style="display:block"
+          }
+        })
+      };
+    </script>  
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #ff9800;">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #ff9800;">
       <div class="container">
-        <span class="navbar-text">
+        <span class="navbar-brand text-dark">
           <h1>EZEE HOTELS</h1>
         </span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
