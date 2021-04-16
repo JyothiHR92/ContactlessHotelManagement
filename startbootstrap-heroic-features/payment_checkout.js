@@ -5,11 +5,13 @@ const book = () => {
   console.log(price.innerHTML);
   //let price = 40.5;
   let customerID = sessionStorage.getItem('sub');
+  let userName = sessionStorage.getItem('username');
 
   event.preventDefault();
   const params = JSON.stringify({
       "price": price.innerHTML,
       "customerID": customerID,
+      "userName" : userName
     });
 //https://abpi6gz5hb.execute-api.us-east-1.amazonaws.com/latest
 //https://jv1jisy2ri.execute-api.us-east-1.amazonaws.com/latest
@@ -29,40 +31,7 @@ const book = () => {
 
 //https://o09hgaf18i.execute-api.us-east-1.amazonaws.com/latest
 //https://nw87o9upt0.execute-api.us-east-1.amazonaws.com/latest
- axios.post('https://nw87o9upt0.execute-api.us-east-1.amazonaws.com/latest/updatePayment', params, {
-      headers: {
-      'Content-Type': 'application/json',
-      },
-  })
-  .then((response) => {
-    console.log("PD",response); 
-  })
-  .catch((error) => {
-    console.log('Error:', error);
-  });
-  axios.post('https://nw87o9upt0.execute-api.us-east-1.amazonaws.com/latest/updateConcierge', params, {
-        headers: {
-        'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        console.log("UC", response)
-      })
-      .catch((error) => {
-        console.log('Error:', error);
-      });
 
-  axios.post('https://nw87o9upt0.execute-api.us-east-1.amazonaws.com/latest/checkout', params, {
-        headers: {
-        'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        console.log("CO", response)
-      })
-      .catch((error) => {
-        console.log('Error:', error);
-      });
 
 
 };
