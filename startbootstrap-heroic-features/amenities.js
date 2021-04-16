@@ -56,35 +56,35 @@
             {
             if (document.getElementById('chkTowels').checked == true)
             {
-                strMessage ="Extra towels needed";
+                strMessage ="Extra towels needed.";
             }
             if (document.getElementById('chkToiletries').checked == true)
             {
-                strMessage ="Extra toiletries needed";
+                strMessage ="Extra toiletries needed.";
             }
             if (document.getElementById('chkCleaning').checked == true)
             {
-                strMessage ="Room cleaning needed";
+                strMessage ="Room cleaning needed.";
             }
             if (document.getElementById('chkTowels').checked == true && document.getElementById('chkToiletries').checked == true)
             {
-                strMessage = "Extra towels and toiletries needed";
+                strMessage = "Extra towels and toiletries needed.";
             }
             if (document.getElementById('chkTowels').checked == true && document.getElementById('chkCleaning').checked == true)
             {
-                strMessage = "Extra towels and Room cleaning needed";
+                strMessage = "Extra towels and Room cleaning needed.";
             }
             if (document.getElementById('chkToiletries').checked == true && document.getElementById('chkCleaning').checked == true)
             {
-                strMessage = "Extra toiletries and Room cleaning needed";
+                strMessage = "Extra toiletries and Room cleaning needed.";
             }
             if (document.getElementById('chkTowels').checked == true && document.getElementById('chkToiletries').checked == true && document.getElementById('chkCleaning').checked == true)
             {
-                strMessage = "Extra towels, toiletries and Room cleaning needed";
+                strMessage = "Extra towels, toiletries and Room cleaning needed.";
             }
             if(document.getElementById('txtOther').value != "" && strMessage != "")
             {
-                strMessage = strMessage + "\n" + "Other Requests: " + document.getElementById('txtOther').value;
+                strMessage = strMessage + "<br>" + "Other Requests: " + document.getElementById('txtOther').value;
             }
             else if(document.getElementById('txtOther').value != "" && strMessage == "")
             {

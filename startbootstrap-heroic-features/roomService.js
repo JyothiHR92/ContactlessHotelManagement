@@ -267,10 +267,8 @@ function insertRoomService()
 
   for (i=0;i<lblItems.length;i++)
   {
-   strMsg = strMsg + document.getElementById('lbl'+i).textContent + " quantity " + document.getElementById('lblQt'+i).value +"\n";
+   strMsg = strMsg + document.getElementById('lblQt'+i).value + " - " + document.getElementById('lbl'+i).textContent + "<br>";
  }
-
- strMsg = "Order Placed for \n" + strMsg;
 
  axios.post('https://pohsxfh3h3.execute-api.us-east-1.amazonaws.com/prod/sendemailconcierge', {strMsg: strMsg, customerID: customerID})        
  .then(function (response) {
