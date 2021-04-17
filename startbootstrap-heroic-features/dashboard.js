@@ -370,6 +370,8 @@ const retreiveReservation = () =>{
             document.getElementById('viewreservation').style="display:none";
             document.getElementById('cancelres').style="display:none";
             document.getElementById('extendcheckout').style="display:none"
+            document.getElementById('checkinbutton').style="display:none"
+            document.getElementById('servicebutton').style="display:none"
             document.getElementById('viewblankrecords').style="display:block";
             document.getElementById('displaymessage').innerText='No reservations found.'
         }

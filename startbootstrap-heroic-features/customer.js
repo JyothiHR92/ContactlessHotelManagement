@@ -50,12 +50,13 @@ function getUserAttributes(){
                   console.log(response)
                   console.log('here')
                   console.log(window.location.href)
-                  location.href = "reserve.html"
-                  document.getElementById('exampleModalLongTitle').innerHTML = 'Customer Details'
-                  document.getElementById('modalbody').innerHTML = 'Details Saved Successfully'
+                  //location.href = "reserve.html"
+                  document.getElementById('modalbody').innerHTML = 'Saved your details sucessfully'
+                  sleep(2000).then(() => {window.location.href = 'reserve.html';});
                   //alert('Data saved successfully')
                 })
               .catch(function (error) {
+                document.getElementById('modalbody').innerHTML = 'Details was not saved. Please try again after sometime'
                 console.log(error)
               });
              
@@ -115,13 +116,14 @@ function getCurrentUser() {
                   console.log(window.location.href)
                   //document.getElementById('exampleModalLongTitle').innerHTML = ' Booking'
                   document.getElementById('modalbody').innerHTML = 'Booked room Successfully'
-                  sleep(3000).then(() => {window.location.href = 'dashboard.html';});
+                  sleep(2000).then(() => {window.location.href = 'dashboard.html';});
                   //location.href = "dashboard.html"
                   //alert('Booked room successfully')
                  
                 })
               .catch((error) => {
             console.error('Error:', error);
+            document.getElementById('modalbody').innerHTML = 'Room is not booked. Please try again after sometime'
           });
             
         });
@@ -190,3 +192,11 @@ function getCurrentUserForDisplay() {
   }
 }
  
+const signOut = () =>{
+  console.log("sign out");
+  const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  var cognitoUser = userPool.getCurrentUser();
+  if (cognitoUser) cognitoUser.signOut();
+  sessionStorage.clear();
+  location.href = "landing_page.html"
+};

@@ -365,7 +365,7 @@ app.get('/getCountRows', (req, res) => {
   
   console.log('inside get customer')
   let query =  `select count(*) as rcount from Reservations where reservationID != \'${reservationID}\' and roomID = \'${roomID}\'
-  and \'${extended_checkout}\' > checkInDate and checkIndate > \'${current_startdate}\'`;
+  and \'${extended_checkout}\' >= checkInDate and checkIndate > \'${current_startdate}\'`;
   console.log(query)
   pool.query(query, (err, results, fields) => {
     if (err) {

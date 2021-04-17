@@ -47,7 +47,7 @@
 </style>-->
 <style type="text/css">
   .jumbotron{
-          background-image: url("https://landingimage.s3.amazonaws.com/banner1.jpeg");
+          background-image: url("https://landingimage1.s3.amazonaws.com/project_banner.jpg");
           background-repeat: no-repeat, repeat;
           background-position: center; /* Center the image */
           background-size: cover; /* Resize the background image to cover the entire container */
@@ -109,6 +109,9 @@ function myFunction() {
               <li class="nav-item"id="bot" style = "display:none">
                <button class="btn btn-primary my-2 mr-sm-2" type="submit" onClick="window.open('https://us-east-1.sumerian.aws/22b1eecf89ae41139fbc2329af18c018.scene'); return false">Bot</button>
               </li>  
+              <li class="nav-item">
+                <button class="btn btn-primary my-2 mr-sm-2" type="submit" onclick="location.href='search.html';" >Search Hotels</button>
+              </li>
               <li class="nav-item">
                 <button class="btn btn-primary my-2 mr-sm-0" onclick="signOut()" type="submit">Logout</button>
             </li> 
@@ -191,7 +194,7 @@ function myFunction() {
                             <div class="card-body">
                               <form class="form" role="form" autocomplete="off">
                                 <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label datepickerto form-control-label">ChecOut-Date</label>
+                                    <label class="col-lg-3 col-form-label datepickerto form-control-label">Checkout Date</label>
                                     <div class="col-lg-9">
                                       <input class="form-control" id="datepickerto"  type="date" required>
                                     </div>
@@ -243,7 +246,7 @@ function myFunction() {
         
                               <!-- Modal body -->
                               <div class="modal-body" >
-                                <h1 class = "text-center align-middle"id="modalb" style="height: 350px;"></h1>
+                                <h1 class = "text-center align-middle"id="modalb" style="padding-top: 75%"></h1>
                                 
                                 <script type = "text/javascript">
                                   document.getElementById('modalb').innerText = sessionStorage.getItem('res_id');

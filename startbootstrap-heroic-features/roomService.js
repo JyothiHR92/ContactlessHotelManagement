@@ -304,3 +304,12 @@ const getDashboard = () =>{
    event.preventDefault();
    location.href = "dashboard.html"
 };
+
+const signOut = () =>{
+   console.log("sign out");
+   const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+   var cognitoUser = userPool.getCurrentUser();
+   if (cognitoUser) cognitoUser.signOut();
+   sessionStorage.clear();
+   location.href = "landing_page.html"
+};

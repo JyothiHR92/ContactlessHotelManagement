@@ -21,13 +21,24 @@ function search() {
       .then(function (response) {
         //resultElement.innerHTML = generateSuccessHTMLOutput(response);
         console.log(response)
-        res = response.data
-        console.log(res.data[0].hotelId)
+        //res = response.data
+        //console.log(res.data[0].hotelId)
         console.log(response.data.data.length)
          /*for(var i = 0; i < response.data.data.length; i ++){
            carddisplay.innerHTML = generateSearchOutput(response)
          }*/
+         if(response.data.data.length == 0)
+      {
+        console.log('here in failure')
+        
+        //document.getElementById('alert').style = "display:block";
+        //return document.getElementById('alert').innerText = "Sorry, rooms are not available at the selected location"
+        return document.getElementById('carddisplay').innerText= "Sorry, rooms are not available at the selected location."
+      }
+      else
+        {
           generateSearchOutput(response)
+        }
       })
       .catch(function (error) {
         //resultElement.innerHTML = generateErrorHTMLOutput(error);
@@ -35,8 +46,10 @@ function search() {
 
     function generateSearchOutput(response){
       console.log('here')
-      console.log('carddisplay = ' + JSON.stringify(document.querySelector('carddisplay')))
+      //console.log('carddisplay = ' + JSON.stringify(document.querySelector('carddisplay')))
       cardtext = "";
+      
+      
       for (var i = 0; i < response.data.data.length; i++)
       {
         checkout = document.getElementById('datepickerto').value;
@@ -73,9 +86,14 @@ function search() {
         </div>
         </div>
         </div>`;
+        
       }
+      //console.log(cardtext)
+      
+      
       return document.getElementById('carddisplay')
       .innerHTML = cardtext;
+      
 
       //  return document.getElementById('carddisplay')
       //   .innerHTML = response.data.data.reduce((a, res) => a + 
@@ -96,6 +114,8 @@ function search() {
       console.log(cardtitle + cardtext)*/
       //document.getElementById('select').onclick = clickSelect()
     }
+   
+  
 }
 
 

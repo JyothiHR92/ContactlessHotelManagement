@@ -22,7 +22,7 @@
               crossorigin="anonymous" />
               <style type="text/css">
                 .jumbotron{
-                        background-image: url("https://landingimage.s3.amazonaws.com/banner1.jpeg");
+                        background-image: url("https://landingimage1.s3.amazonaws.com/project_banner.jpg");
                         background-repeat: no-repeat, repeat;
                         background-position: center; /* Center the image */
                         background-size: cover; /* Resize the background image to cover the entire container */
@@ -47,6 +47,19 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class = "nav-item">
+              <p class= "text-dark my-2 mr-sm-2" id="getuser" ></p>
+              <script type="text/javascript">
+              document.getElementById('getuser').innerText= 'Hello, ' + sessionStorage.getItem('username');
+              </script>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-primary my-2 mr-sm-2" type="submit" onclick="location.href='search.html';" >Search Hotels</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-primary my-2 mr-sm-0" onclick="signOut()" type="submit">Logout</button>
+        </li> 
     </div>
     </div>
   </nav>
@@ -82,9 +95,9 @@
                 console.log(room_type)
 
                 document.getElementById('hotel_name').innerText = 'Hotel Name: ' + hotel_name;
-                document.getElementById('rtn-ame').innerText = 'Room_Type: ' + room_type;
-                document.getElementById('c_in').innerText = 'Check_In: ' + checkin
-                document.getElementById('c_out').innerText= 'Check_Out: ' + checkout
+                document.getElementById('rtn-ame').innerText = 'Room Type: ' + room_type;
+                document.getElementById('c_in').innerText = 'Checkin: ' + checkin
+                document.getElementById('c_out').innerText= 'Checkout: ' + checkout
                 document.getElementById('price').innerText = 'Price Per Day:  ' + price
                 document.getElementById('add').innerText = 'Hotel Address:  ' + addr
                 </script>
@@ -96,10 +109,10 @@
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <!--<h5 class="modal-title" id="exampleModalLongTitle"></h5>-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="exampleModalLongTitle">Booking Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
-                </button>-->
+                </button>
               </div>
               <div class="modal-body">
                 <h4 id = "modalbody"></h4>
