@@ -71,3 +71,10 @@ const landLogin = () => {
         });
     }
   }
+
+  //redirect to admin dashboard
+  const adminDashboard =  () =>
+  {
+    event.preventDefault();
+    location.href = "https://hoteladmin.auth.us-east-1.amazoncognito.com/login?client_id=49k21o4f3nk7ls8g5n4nv6uc1b&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https://admin.ezeehotel.com"
+  };
