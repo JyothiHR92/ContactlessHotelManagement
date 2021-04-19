@@ -8,7 +8,7 @@
        .then(function (response) {
         //resultElement.innerHTML = generateSuccessHTMLOutput(response);
         var hoteName = response.data[0][0];
-
+        sessionStorage.setItem('checkOutDate', response.data[0][1]);
         document.getElementById('hName').textContent = hoteName.toUpperCase();    
 
        })
