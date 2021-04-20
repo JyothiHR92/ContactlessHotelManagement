@@ -240,7 +240,7 @@ html>
                             result.data.forEach((u)=> {
                               temp += "<tr>";
 
-                              if(u.bookingType == 'Room Service ') {
+                              if(u.bookingType.includes('Room')) {
                               
                               // temp += "<td>"+u+"</td>";
                               temp += "<td>"+"Food"+"</td>";
@@ -311,7 +311,7 @@ html>
                       result.data.forEach((u)=> {
                         temp += "<tr>";
                         
-                        if(u.bookingType == 'Room Service ') {
+                        if(u.bookingType.includes('Room')) {
                         
                         // temp += "<td>"+u+"</td>";
                         temp += "<td>"+"Food"+"</td>";
