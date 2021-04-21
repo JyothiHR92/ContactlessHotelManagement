@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Stripe Checkout Sample</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Stripe Checkout</title>
+    <!-- <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
-    />
-   <!--  <link rel="icon" href="favicon.ico" type="image/x-icon" /> 
-    <link rel="stylesheet" href="css/normalize.css" /> 
-    <link rel="stylesheet" href="css/global.css" /> 
-    <link rel="stylesheet" href="css/global.css" /> -->
+    /> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="./success.js" defer></script>
   </head>
 
   <body>
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg fixed-top" style="background-color: #ff9800;">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #ff9800;">
   <div class="container">
     <span class="navbar-text">
     <h1>EZEE HOTELS</h1>
@@ -39,10 +41,7 @@
           <li class="nav-item">
               <button class="btn btn-primary my-2 mr-sm-2" onclick="getDashboard()"type="submit" >Dashboard</button>
             </li>
-            <!-- <li class="nav-item" id = "yourstay" style = "display:none">
-              <button class="btn btn-primary my-2 mr-sm-2" type="submit" onclick="location.href='myOngoingTrip.html';">Your Stay
-              </button>
-            </li> -->
+
             <li class="nav-item">
               <button class="btn btn-primary my-2 mr-sm-0" onclick="signOut()" type="submit">Logout</button>
           </li>
