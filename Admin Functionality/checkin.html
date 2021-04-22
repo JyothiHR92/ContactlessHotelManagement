@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+#my_camera{
+ width: 320px;
+ height: 240px;
+ border: 1px solid black;
+}
+</style>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Admin Dashboard</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/heroic-features.css" rel="stylesheet">
+
+</head>
+
+<body onload="checkinload()">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" >
+    <div class="container">
+		<h1>EZEE HOTELS</h1>
+      <!--<a class="navbar-brand" href="#">Start Bootstrap</a>-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+           <!--<button type="button" class="btn btn-primary btn-lg" onclick="location.href='proj.html';">BACK</button>
+			<button type="button" class="btn btn-primary btn-lg" onclick="location.href='https://hoteladmin.auth.us-east-1.amazoncognito.com/login?client_id=49k21o4f3nk7ls8g5n4nv6uc1b&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=https://admin.ezeehotel.com';">LOGOUT</button>-->
+          </li>
+         
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+<header style="margin-top:3%;">
+	<h1>Check-In by scanning your Reservation Confirmation Number</h1>
+    <!-- Jumbotron Header -->
+    </header>
+    <!-- Jumbotron Header -->
+    
+   <!-- Page Features -->
+    <div class="row text-center">
+
+      <div class="col-lg-3 col-md-6 mb-4" style=" margin: 0 auto; 
+        float: none;
+        margin-bottom: 10px; ">
+      
+          <div id="my_camera"></div>
+		  <br/>
+<input type=button value="Take Snapshot" onClick="take_snapshot()" >
+ <br/>
+
+ 
+        
+      </div>
+	  <div class="col-lg-3 col-md-6 mb-4" style=" margin: 0 auto; 
+        float: none;
+        margin-bottom: 10px; ">
+		<div id="results" ></div>
+		</div>
+
+     
+     
+    </div>
+    <!-- /.row -->
+	
+	
+	<div id="myModal" display="none" class="modal">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+     
+      <div class="modal-body">
+        <p id="demo">Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-lg" onclick="closemodal();">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; ezeehotel.com</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript" src="webcam.min.js"></script>
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script language="JavaScript">
+	var username;
+	//set the webcam
+	 Webcam.set({
+	  width: 320,
+	  height: 240,
+	  image_format: 'jpeg',
+	  jpeg_quality: 90
+	 });
+	 Webcam.attach( '#my_camera' );
+
+	//function called on clicking take_snapshot
+	function take_snapshot() {
+	 
+	 // take snapshot and get image data
+	 Webcam.snap( function(data_uri) {
+	  // display results in page
+	  document.getElementById('results').innerHTML = 
+	  '<img src="'+data_uri+'"/>';
+	  addFile(dataURItoBlob(data_uri));
+	  
+	  } );
+	}
+
+function dataURItoBlob(dataURI) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+        byteString = atob(dataURI.split(',')[1]);
+    else
+        byteString = unescape(dataURI.split(',')[1]);
+
+    // separate out the mime component
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+	
+    return new Blob([ia], {type:mimeString});
+}
+
+//function to add the image to S3
+function addFile(fileToUpload) {
+  //save the image with the username of the logged in user
+  var fileName = username+'.jpg';
+ 
+  var fileKey = fileName;
+ //update config
+AWS.config.update({
+  region: 'us-east-1',
+    accessKeyId:'AKIATGK7WIQJ4M53WUMA',
+     secretAccessKey: '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',
+ 
+});
+//uploading image to S3
+var s3 = new AWS.S3({
+  params: {Bucket: 'checkinhotelcustomers'}
+});
+
+	s3.upload({
+    Key: fileKey,
+    Body: fileToUpload,
+	
+  }, function(err, data) {
+    if (err) {
+		
+      return alert('There was an error uploading your image: ', err.message);
+    }
+	else{
+		console.log('Successfully uploaded image');
+		//alert('Successfully uploaded');
+		readTextFromImage();
+    }
+   
+  });
+  
+  
+  
+}
+//function to detect text from image
+function readTextFromImage(){
+	var reservationID;
+	var photo = username+".jpg";
+	
+      var bucket = "checkinhotelcustomers";
+	const client = new AWS.Rekognition();
+	const params = {
+		"Image": {
+        "S3Object": {
+            "Bucket": bucket,
+            "Name": photo
+        }
+    }
+	}
+	
+	client.detectText(params, function(err, response) {
+		if (err) {
+           console.log( "params =  " + JSON.stringify(params));
+           console.log(err, err.stack); // an error occurred
+         } else {
+           console.log("params=  " + JSON.stringify(params));
+		    console.log("response JSON =  " + JSON.stringify(response.TextDetections));
+		   var resp= [];
+			resp = response.TextDetections;
+			console.log(resp);
+			//var detectedText ='C12345';
+		if(resp.length != 0) {
+		//if(detectedText == 'C12345'){
+				var detectedBookingNo = resp[0].DetectedText;
+				//var detectedBookingNo = 'C12345';
+			//	console.log(resp[0].DetectedText);
+				//var detectedBookingNo = detectedText;
+				axios.get("")
+				
+							
+				axios.get("https://kxd8exr3vj.execute-api.us-east-1.amazonaws.com/dev/reservation/id?id='"+detectedBookingNo+"'"
+				)
+				.then((response) => {
+					
+				console.log(JSON.stringify(response));
+				
+					var  reservation =[] ;
+					reservation= JSON.stringify(response.data.data);
+					console.log(reservation);
+					if(reservation == null) {
+						var msg = 'No reservation retrieved with the scanned confirmation number';
+						document.getElementById("myModal").style.display = "block";
+					document.getElementById("demo").innerHTML = msg;
+						
+					}
+					else {
+					var json_data = response.data.data;
+						reservationID = json_data.reservationID;
+						console.log(json_data.reservationID);
+						axios.put("https://kxd8exr3vj.execute-api.us-east-1.amazonaws.com/dev/reservation",{'id' : reservationID}).then((response) => {
+							var msg='Your booking with reservation ID '+ reservationID+' has been successfully checked in. Please login to your app to avail the hotel facilities. Enjoy your stay!';
+							 document.getElementById("myModal").style.display = "block";
+							document.getElementById("demo").innerHTML = msg;
+						}, (error) => {
+						  console.log(error);
+						});
+					}
+
+				}, (error) => {
+					console.log(error);
+				});
+				
+				
+				
+			}
+			else{
+			console.log('here');
+				var msg = 'Sorry! No confirmation number detected. Please try again!';
+				document.getElementById("myModal").style.display = "block";
+					document.getElementById("demo").innerHTML = msg;
+
+			}
+			
+	}
+	})
+}
+function closemodal(){
+	document.getElementById("myModal").style.display = "none";
+	location.reload();
+
+
+}
+//function called on load of the page
+function checkinload(){
+	//read the URL Parameter
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const token = urlParams.get('token')
+	console.log(token);
+	//decoding the access token to get th username
+	var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+	console.log(JSON.parse(jsonPayload).username);
+	username = JSON.parse(jsonPayload).username;
+}
+</script>
+</body>
+
+</html>
+
