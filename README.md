@@ -42,4 +42,20 @@ allow customers to follow the social distancing guidelines.
 
 ![userDashboard](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/userdashboard.PNG)
 
+* Amenities
+
+![Amenities](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/amenities.PNG)
+
+*  Bill
+
+![bill](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/bill.PNG)
+
+![stripe](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/stripe.PNG)
+
+![stripe_mobile](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/stripe_mobile.PNG)
+
+* Conversational Bot
+
+![bot](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/bot.PNG)
+
 
