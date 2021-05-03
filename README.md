@@ -16,3 +16,12 @@ allow customers to follow the social distancing guidelines.
 * AWS RDS and dynamoDB
 * AWS codepipeline
 
+# Application Link
+
+* The application is accessible at https://ezeehotel.com/
+
+# UI Screenshots
+
+* Landing page
+
+
