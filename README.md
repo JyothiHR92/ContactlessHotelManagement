@@ -24,7 +24,22 @@ allow customers to follow the social distancing guidelines.
 
 * Admin Dashboard
 
-
 ![Admin Dashboard](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/admindashboard.PNG)
+
+* Checkin
+
+![checkin](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/scan.PNG)
+
+* Landing Page
+
+![landing](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/landing.PNG)
+
+* Search
+
+![search](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/search.PNG)
+
+* User Dashboard
+
+![userDashboard](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/userdashboard.PNG)
 
 
