@@ -22,6 +22,9 @@ allow customers to follow the social distancing guidelines.
 
 # UI Screenshots
 
-* Landing page
+* Admin Dashboard
+
+
+![Admin Dashboard](https://github.com/JyothiHR92/ContactlessHotelManagement/blob/main/screenshots/admindashboard.PNG)
 
 
