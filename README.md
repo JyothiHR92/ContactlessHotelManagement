@@ -1,4 +1,4 @@
-# ContactlessHotelManagementSystem
+# Contactless Hotel Management System
 
 #  EZEE HOTELS
 
